@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,9 @@ Route::get('/', function () {
 Route::get('/intern', function() {
     return view('web.sections.intern.index');
 })->name('intern.index');
+
+Route::get('/user', function() {
+    return view('user.sections.dashboard.index');
+});
+
+Route::post('/register/intern,', [RegisterController::class, 'intern_register'])->name('intern.register');

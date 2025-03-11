@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('working_records', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('document_id')->nullable();
-            $table->date('from_date')->nullable();
-            $table->date('to_date')->nullable();
+            $table->string('from_date')->nullable();
+            $table->string('to_date')->nullable();
             $table->string('job')->nullable();
             $table->string('workplace')->nullable();
             $table->string('position')->nullable();

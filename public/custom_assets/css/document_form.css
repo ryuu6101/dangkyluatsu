@@ -1,0 +1,58 @@
+.document-form {
+    .dotted-line-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: thin black dotted;
+        outline: none;
+    }
+
+    .select-box {
+        height: 26px;
+    }
+
+    .select-box:required:invalid {
+        color: gray;
+    }
+
+    span.error-message {
+        display: block;
+        transition: 0.4s;
+        max-height: 0;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+    }
+
+    /* span.error-message::after {
+        content: "‎";
+    } */
+
+    /* input:user-invalid,
+    select:user-invalid {
+        & + span.error-message {
+            max-height: 200px;
+        }
+    }
+
+    input[pattern]:user-invalid {
+        & + span.error-message::after {
+            content: "Vui lòng điền đúng";
+        }
+    }
+
+    input:required:user-invalid,
+    select:required:user-invalid {
+        & + span.error-message::after {
+            content: "Vui lòng điền trường này";
+        }
+    } */
+
+    table th {
+        font-weight: 700 !important;
+    }
+
+    .family-member-row td,
+    .working-record-row td {
+        padding: .2rem;
+    }
+}
