@@ -20,8 +20,11 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UsersTableSeeder::class,
+            AdminsTableSeeder::class,
             DocumentTypesTableSeeder::class,
+            DocumentStatusesTableSeeder::class,
+            DegreeTypesTableSeeder::class,
+            ProgressTypesTableSeeder::class,
         ]);
     }
 }

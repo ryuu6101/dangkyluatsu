@@ -39,16 +39,18 @@
                 </li>
 
                 <li class="nav-item nav-item-submenu nav-item-open">
-                    <a href="#" class="nav-link">
+                    <a href="#!" class="nav-link">
                         <i class="icon-history"></i> 
                         <span>Quá trình của tôi</span>
                     </a>
 
                     <ul class="nav nav-group-sub" style="display: block;">
                         <li class="nav-item">
-                            <a href="#!" class="nav-link active">Quá trình đăng ký tập sự</a>
-                            <a href="#!" class="nav-link">Quá trình thi kết thúc tập sự</a>
-                            <a href="#!" class="nav-link">Quá trình xin cấp/cấp lại CCHN</a>
+                            @foreach (auth()->user()->progresses->sortBy('progress_type_id') as $progress)
+                            <a href="{{ route('my-progress.index', ['slug' => $progress->type->slug]) }}" class="nav-link">
+                                {{ $progress->type->name }}
+                            </a>
+                            @endforeach
                         </li>
                     </ul>
                 </li>

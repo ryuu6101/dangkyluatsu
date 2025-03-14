@@ -10,4 +10,8 @@ class Attachment extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function files() {
+        return $this->hasMany(AttachmentFile::class, 'attachment_id');
+    }
 }

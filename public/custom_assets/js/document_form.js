@@ -62,7 +62,7 @@ function add_working_record_row() {
                 <div class="row">
                     <div class="col">
                         <input type="text" class="form-control form-control-sm datepicker" required  
-                        placeholder="Nhập dữ liệu" name="working_records[${count}][form_date]"
+                        placeholder="Nhập dữ liệu" name="working_records[${count}][from_date]"
                         data-input-name="working_records_from_date" data-row="${count}" oninput="validate(this)">
                         <span class="error-message text-danger"></span>
                     </div>
@@ -121,23 +121,14 @@ function add_sequence_number(container) {
 }
 
 function validate(input) {
+    let next_sibling = input.nextElementSibling;
+    if (next_sibling && !next_sibling.classList.contains("error-message")) return true;
+    
     let input_name = input.getAttribute("name");
     let value = input.value;
     let is_datepicker = input.classList.contains("datepicker");
     let date = is_datepicker ? moment(value, "DD/MM/YYYY") : '';
     let pattern;
-
-    if (input_name == "portrait_pic" && input.value == '') {
-        new Noty({
-            text: 'Vui lòng chọn ảnh 3x4.',
-            type: 'warning',
-        }).show();
-
-        return false;
-    }
-
-    if (input.nextElementSibling && !input.nextElementSibling.classList.contains("error-message")) return true;
-
     let error_message = input.nextElementSibling;
     error_message.style.maxHeight = 0;
 
@@ -185,6 +176,13 @@ function validate(input) {
 
     if (input_name == "birthday" && date.diff(moment(), 'year') > -22) {
         error_message.innerText = "Ngày sinh không hợp lệ";
+        error_message.style.maxHeight = "200px";
+        return false;
+    }
+
+    pattern = /(?:(?:15|16|17|18|19|20|21)[0-9]{2})/g;
+    if (input.getAttribute("data-input-name") == "family_members_birth_year" && !pattern.test(input.value)) {
+        error_message.innerText = "Vui lòng nhập đúng";
         error_message.style.maxHeight = "200px";
         return false;
     }
@@ -251,7 +249,16 @@ function validate(input) {
 function validateAll(formId) {
     let has_error = false;
     let form = document.getElementById(formId);
-    form.querySelectorAll('input[name="portrait_pic"],input[type="text"],select').forEach(e => {
+
+    if ($('input[name="portrait_pic"]').val() == '') {
+        new Noty({
+            text: 'Vui lòng chọn ảnh 3x4.',
+            type: 'warning',
+        }).show();
+        has_error = true;
+    }
+
+    form.querySelectorAll('input[type="text"],select').forEach(e => {
         if (!validate(e) && !has_error) {
             has_error = true;
             window.scrollTo({
@@ -261,5 +268,40 @@ function validateAll(formId) {
         };
     });
 
-    if (!has_error) form.submit();
+    if (has_error) return;
+
+    if ($('tbody.family-members-container').length && !$('tr.family-member-row').length) {
+        new Noty({
+            text: 'Vui lòng nhập hoàn cảnh gia đình.',
+            type: 'warning',
+        }).show();
+
+        window.scrollTo({
+            top: $('tbody.family-members-container').position().top + window.pageYOffset - 100,
+            behavior: "smooth",
+        });
+
+        return;
+    }
+
+    if ($('tbody.working-records-container').length && !$('tr.working-record-row').length) {
+        new Noty({
+            text: 'Vui lòng nhập quá trình hoạt động.',
+            type: 'warning',
+        }).show();
+
+        window.scrollTo({
+            top: $('tbody.working-records-container').position().top + window.pageYOffset - 100,
+            behavior: "smooth",
+        });
+
+        return;
+    }
+
+    if ($('#cardIssuedModal').length) {
+        $('#cardIssuedModal').modal('show');
+        return;
+    }
+
+    form.submit();
 }

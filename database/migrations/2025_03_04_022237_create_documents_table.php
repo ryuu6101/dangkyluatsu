@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('document_type_id')->nullable();
-            $table->unsignedBigInteger('account_id')->nullable();
+            $table->unsignedBigInteger('parrent_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('portrait_pic')->nullable();
             $table->string('fullname')->nullable();
             $table->integer('gender')->default(0);
@@ -37,8 +38,10 @@ return new class extends Migration
             $table->string('educated_method')->nullable();
             $table->string('educated_subject')->nullable();
             $table->string('educated_expertise')->nullable();
+            $table->string('educated_place')->nullable();
             $table->string('political_level')->nullable();
             $table->string('union_joining_date')->nullable();
+            $table->string('union_ativity_place')->nullable();
             $table->string('vcp_temperary_date')->nullable();
             $table->string('vcp_offical_date')->nullable();
             $table->string('law_certificate_number')->nullable();
@@ -54,7 +57,12 @@ return new class extends Migration
             $table->string('instructor_number')->nullable();
             $table->longText('reward_and_discipline')->nullable();
             $table->longText('crime_record')->nullable();
+            $table->string('joining_desision')->nullable();
+            $table->string('lawyer_card_number')->nullable();
+            $table->string('lawyer_card_date')->nullable();
+            $table->string('reissued_reason')->nullable();
             $table->string('city')->nullable();
+            $table->unsignedBigInteger('document_status_id')->default(1);
             $table->timestamps();
         });
     }

@@ -89,7 +89,7 @@
                 </div>
                 <div class="row mb-3 pt-5">
                     <div class="col">
-                        <label class="custom-control custom-control-info custom-checkbox">
+                        <label class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input agreement-checkbox" id="agreeTermAndCondition">
                             <span class="custom-control-label">Tôi đã đọc hiểu và đồng ý</span>
                         </label>

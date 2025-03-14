@@ -17,10 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'username',
+    //     'password',
+    //     'fullname',
+    //     'profile_pic',
+    // ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +45,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function family_members() {
+        return $this->hasMany(FamilyMember::class, 'user_id');
+    }
+
+    public function working_records() {
+        return $this->hasMany(WorkingRecord::class, 'user_id');
+    }
+
+    public function degrees() {
+        return $this->hasMany(Degree::class, 'user_id');
+    }
+
+    public function progresses() {
+        return $this->hasMany(Progress::class, 'user_id');
+    }
 }

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('mail_configs', function (Blueprint $table) {
             $table->id();
             $table->string('username')->nullable();
             $table->string('password')->nullable();
-            $table->string('fullname')->nullable();
-            $table->string('profile_pic')->nullable();
+            $table->string('from_address')->nullable();
+            $table->string('from_name')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('mail_configs');
     }
 };

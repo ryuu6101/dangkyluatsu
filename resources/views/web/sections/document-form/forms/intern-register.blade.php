@@ -1,15 +1,5 @@
-@extends('web.layouts.master')
-
-@section('title', 'Đăng ký thực tập')
-
-@push('styles')
-<link rel="stylesheet" href="{{ asset('custom_assets/css/document_form.css') }}">
-@endpush    
-
-@section('contents')
-
 <div class="container">
-    <form action="{{ route('intern.register') }}" autocomplete="off" class="document-form" 
+    <form action="{{ route('intern-register.post') }}" autocomplete="off" class="document-form" 
     novalidate method="post" id="internForm" enctype="multipart/form-data">
         @method("post")
         @csrf
@@ -29,8 +19,8 @@
     
                 <div class="row mb-3">
                     <div class="col-2">
-                        <input type="file" class="invisible" style="height: 0" name="portrait_pic" id="portraitPicture" accept="image/*"> 
-                        <div class="d-none"></div>
+                        <input type="file" class="invisible" style="height: 0" name="profile[portrait_pic]" 
+                        id="portraitPicture" accept="image/*">
                         <label class="border border-dark d-flex align-items-center justify-content-center" 
                         style="aspect-ratio: 3/4; width:8rem" type="button" for="portraitPicture">
                             <h3 class="text-uppercase text-center">
@@ -64,7 +54,7 @@
                         <strong>1. Tên tôi là (ghi bằng chữ in hoa): </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input text-uppercase" name="fullname" required>
+                        <input type="text" class="dotted-line-input text-uppercase" name="profile[fullname]" required>
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -76,7 +66,7 @@
                                 <strong>2. Giới tính: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required name="gender">
+                                <select class="select-box dotted-line-input" required name="profile[gender]">
                                     <option value="" hidden>Chọn</option>
                                     <option value="0" class="text-dark">Nam</option>
                                     <option value="1" class="text-dark">Nữ</option>
@@ -92,9 +82,10 @@
                                 <strong>3. Ngày sinh: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="birthday">
+                                <input type="text" class="dotted-line-input datepicker" required 
+                                placeholder="DD/MM/YYYY" name="profile[birthday]">
                                 <span class="error-message text-danger"></span>
-                                <span class="badge position-absolute" style="right:.5rem;top:0;pointer-events:none;">
+                                <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
                                 </span>
                             </div>
@@ -106,7 +97,7 @@
                                 <strong>4. Quốc tịch: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required readonly value="Việt Nam" name="nationality">
+                                <input type="text" class="dotted-line-input" required readonly value="Việt Nam" name="profile[nationality]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -120,7 +111,7 @@
                                 <strong>5. Dân tộc: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="ethnic">
+                                <input type="text" class="dotted-line-input" required name="profile[ethnic]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -131,7 +122,7 @@
                                 <strong>6. Tôn giáo: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="religious">
+                                <input type="text" class="dotted-line-input" required name="profile[religious]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -142,7 +133,7 @@
                                 <strong>7. Nơi sinh: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required name="birthplace">
+                                <select class="select-box dotted-line-input" required name="profile[birthplace]">
                                     <option value="" hidden>Chọn</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
                                 </select>
@@ -157,7 +148,7 @@
                         <strong>8. Nơi thường trú: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="residence_place">
+                        <input type="text" class="dotted-line-input" required name="profile[residence_place]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -167,7 +158,7 @@
                         <strong>9. Chỗ ở hiện nay: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="current_place">
+                        <input type="text" class="dotted-line-input" required name="profile[current_place]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -179,7 +170,7 @@
                                 <strong>10. Điện thoại: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="phone_number">
+                                <input type="text" class="dotted-line-input" required name="profile[phone_number]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -190,7 +181,7 @@
                                 <strong>11. Email: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="email">
+                                <input type="text" class="dotted-line-input" required name="profile[email]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -222,7 +213,7 @@
                         <strong>14. CCCD: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="id_card_number">
+                        <input type="text" class="dotted-line-input" required name="profile[id_card_number]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -234,9 +225,10 @@
                                 <strong>15. Ngày cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="id_card_date">
+                                <input type="text" class="dotted-line-input datepicker" required 
+                                placeholder="DD/MM/YYYY" name="profile[id_card_date]">
                                 <span class="error-message text-danger"></span>
-                                <span class="badge position-absolute" style="right:.5rem;top:0;pointer-events:none;">
+                                <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
                                 </span>
                             </div>
@@ -248,7 +240,7 @@
                                 <strong>16. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required required name="id_card_place">
+                                <select class="select-box dotted-line-input" required required name="profile[id_card_place]">
                                     <option value="" hidden>Chọn tỉnh/ thành phố</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
                                 </select>
@@ -338,7 +330,8 @@
                         <strong>1. Số bằng cử nhân Luật: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="law_degree_number">
+                        <input type="hidden" name="degree[1][degree_type_id]" value="1">
+                        <input type="text" class="dotted-line-input" required name="degree[1][degree_number]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -350,9 +343,10 @@
                                 <strong>2. Ngày cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="law_degree_date">
+                                <input type="text" class="dotted-line-input datepicker" required 
+                                placeholder="DD/MM/YYYY" name="degrees[1][degree_date]">
                                 <span class="error-message text-danger"></span>
-                                <span class="badge position-absolute" style="right:.5rem;top:0;pointer-events:none;">
+                                <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
                                 </span>
                             </div>
@@ -364,7 +358,7 @@
                                 <strong>3. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="law_degree_place">
+                                <input type="text" class="dotted-line-input" required name="degrees[1][degree_place]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -376,7 +370,8 @@
                         <strong>4. Số giấy chứng nhận tốt nghiệp: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="graduate_degree_number">
+                        <input type="hidden" name="degree[2][degree_type_id]" value="2">
+                        <input type="text" class="dotted-line-input" required name="degrees[2][degree_number]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -389,9 +384,9 @@
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required 
-                                placeholder="DD/MM/YYYY" name="graduate_degree_date">
+                                placeholder="DD/MM/YYYY" name="degrees[2][degree_date]">
                                 <span class="error-message text-danger"></span>
-                                <span class="badge position-absolute" style="right:.5rem;top:0;pointer-events:none;">
+                                <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
                                 </span>
                             </div>
@@ -403,7 +398,7 @@
                                 <strong>6. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="graduate_degree_place">
+                                <input type="text" class="dotted-line-input" required name="degrees[2][degree_place]">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -524,7 +519,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <label class="custom-control custom-control-info custom-checkbox">
+                        <label class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input agreement-checkbox" id="commitmentCheckbox">
                             <span class="custom-control-label p-0"></span>
                         </label>
@@ -536,7 +531,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <label class="custom-control custom-control-info custom-checkbox">
+                        <label class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" disabled id="termAndConditionCheckbox">
                             <span class="custom-control-label p-0"></span>
                         </label>
@@ -556,73 +551,3 @@
         </div>
     </form>
 </div>
-
-@include('web.sections.intern.components.term-and-condition')
-
-@endsection
-
-@push('scripts')
-<script src="https://unpkg.com/js-datepicker"></script>
-<script src="{{ asset('custom_assets/js/document_form.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('body').on('focus', '.datepicker:not(.has-datepicker)', function() {
-            this.classList.add("has-datepicker");
-            datepicker(this, {
-                startDay: 1,
-                formatter: (input, date, instance) => {
-                    input.value = date.toLocaleDateString('en-GB');
-                },
-                onSelect: (instance, date) => {
-                    validate(this);
-                },
-            });
-        });
-
-        $('input[name="portrait_pic"]').change(function (e) {
-            let file = this.files[0];
-            if (file) {
-                let reader = new FileReader();
-                reader.onload = function (event) {
-                    $('label[for="portraitPicture"]').html(`
-                        <img src="${event.target.result}" class="w-100 h-100">
-                    `);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        $('input.attachment-files').change(function(e) {
-            let file_count = this.files.length;
-            let input_id = $(this).attr('id');
-            $(`label[for="${input_id}"]`).children('span').text(file_count + ' file');
-        });
-
-        $('#internForm input[type="text"]').on('input', function() {validate(this)});
-        $('#internForm select').on('change', function() {validate(this)});
-
-        $('input#agreeTermAndCondition').on('change', function() {
-            $('input#termAndConditionCheckbox').prop('checked', $('input#agreeTermAndCondition').is(":checked"));
-        })
-
-        $('.check-agreement-btn').on('click', function() {
-            if ($('input#agreeTermAndCondition').is(":checked")) {
-                $('#termAndCondition').modal('hide');
-            } else {
-                new Noty({
-                    text: 'Bạn phải đồng ý với điều khoản và cam kết',
-                    type: 'warning',
-                }).show();
-            }
-        });
-
-        $('input.agreement-checkbox').on('change', function() {
-            if ($('input.agreement-checkbox').not(':checked').length) {
-                $('button.submit-btn').prop("disabled", true);
-            } else {
-                $('button.submit-btn').prop("disabled", false);
-            }
-        });
-    });
-</script>
-@endpush

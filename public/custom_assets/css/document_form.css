@@ -7,6 +7,12 @@
         outline: none;
     }
 
+    .calendar-icon {
+        top:0;
+        right:.5rem;
+        pointer-events:none;
+    }
+
     .select-box {
         height: 26px;
     }

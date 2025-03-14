@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class UsersTableSeeder extends Seeder
+class AdminsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             ]
         ];
 
-        User::truncate();
-        User::insert($data);
+        Admin::truncate();
+        Admin::insert($data);
     }
 }

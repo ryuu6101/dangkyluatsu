@@ -55,6 +55,16 @@
         });
     </script>
 
+    @if (session('noty'))
+    <script>
+        let noty = {{ Js::from(session('noty')) }}
+        new Noty({
+            text: noty['message'],
+            type: noty['type'],
+        }).show();
+    </script>
+    @endif
+
     @stack('scripts')
 </body>
 </html>

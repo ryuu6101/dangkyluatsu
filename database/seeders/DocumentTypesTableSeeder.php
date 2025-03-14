@@ -16,6 +16,8 @@ class DocumentTypesTableSeeder extends Seeder
         $data = [
             ['name' => 'GIẤY ĐỀ NGHỊ ĐĂNG KÝ TẬP SỰ HÀNH NGHỀ LUẬT SƯ'],
             ['name' => 'GIẤY ĐỀ NGHỊ GIA NHẬP ĐOÀN LUẬT SƯ'],
+            ['name' => 'GIẤY ĐỀ NGHỊ CẤP THẺ LUẬT SƯ'],
+            ['name' => 'GIẤY ĐỀ NGHỊ ĐỔI THẺ LUẬT SƯ'],
         ];
 
         DocumentType::truncate();
