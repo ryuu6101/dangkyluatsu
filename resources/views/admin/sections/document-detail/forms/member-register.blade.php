@@ -31,7 +31,7 @@
 </div>
 
 @php($sn = 1)
-<div class="row flex-nowrap mb-2">
+<div class="row mb-2">
     <div class="col-auto">
         <strong>{{ $sn++ }}. Tên tôi là (ghi bằng chữ in hoa): </strong>
     </div>
@@ -47,7 +47,7 @@
                 <strong>{{ $sn++ }}. Giới tính: </strong>
             </div>
             <div class="col">
-                <span>{{ [0 => 'Nam', 1 => 'Nữ', 2 => 'Khác'][$document->gender] }}</span>
+                <span>{{ $document->gender }}</span>
             </div>
         </div>
     </div>

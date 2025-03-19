@@ -31,15 +31,15 @@ Route::get('/don-xin-doi-the-luat-su', [RegisterController::class, 'card_reissue
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['guest'])->group(function() {
-    Route::get('login', [LoginController::class, 'user_login'])->name('user-login.index');
-    Route::post('login', [LoginController::class, 'user_auth'])->name('user-login.auth');
+    Route::get('dang-nhap', [LoginController::class, 'user_login'])->name('user-login.index');
+    Route::post('dang-nhap', [LoginController::class, 'user_auth'])->name('user-login.auth');
     Route::get('admin/login', [LoginController::class, 'admin_login'])->name('admin-login.index');
     Route::post('admin/login', [LoginController::class, 'admin_auth'])->name('admin-login.auth');
 });
 
 Route::middleware(['auth.user'])->group(function() {
     Route::get('home', [UserSectionController::class, 'home'])->name('user.home');
-    Route::get('dashboard', [UserSectionController::class, 'dashboard'])->name('dashboard.index');
+    Route::get('bang-tin', [UserSectionController::class, 'dashboard'])->name('dashboard.index');
     Route::get('qua-trinh-cua-toi/{slug}', [UserSectionController::class, 'my_progress'])->name('my-progress.index');
 });
 
@@ -47,5 +47,7 @@ Route::middleware(['auth.admin'])->prefix('admin')->group(function() {
     Route::get('/', [AdminSectionController::class, 'home'])->name('admin.home');
     Route::get('documents', [AdminSectionController::class, 'documents'])->name('admin.documents.index');
     Route::get('document/{id}', [AdminSectionController::class, 'document_detail'])->name('admin.document-detail.index');
+    Route::get('accounts', [AdminSectionController::class, 'accounts'])->name('admin.accounts.index');
     Route::get('mail-config', [AdminSectionController::class, 'mail_config'])->name('admin.mail-config.index');
+    Route::get('site-config', [AdminSectionController::class, 'site_config'])->name('admin.site-config.index');
 });

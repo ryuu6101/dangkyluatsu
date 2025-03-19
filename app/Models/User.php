@@ -61,4 +61,12 @@ class User extends Authenticatable
     public function progresses() {
         return $this->hasMany(Progress::class, 'user_id');
     }
+
+    public function getLawDegreeAttribute() {
+        return $this->degrees->where('degree_type_id', 1)->first();
+    }
+
+    public function getGraduateDegreeAttribute() {
+        return $this->degrees->where('degree_type_id', 2)->first();
+    }
 }

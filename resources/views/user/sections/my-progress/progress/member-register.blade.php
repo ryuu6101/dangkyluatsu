@@ -1,67 +1,63 @@
 <div class="row">
     <div class="col">
         <div class="card pt-3 px-4" style="background-color: rgba(255,255,255,0.7)">
+            @php($sn = 0)
             <div class="wizard-progress mb-4">
-                @php($sn = 1)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step >= ++$sn ? 'complete' : ''}}">
                     <div class="node">
                         <span class="d-flex align-items-center justify-content-center h-100">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>1</span>
                             @endif
                         </span>
                     </div>
                     Đề nghị Kết nạp và Cấp thẻ
                 </div>
-                @php($sn++)
                 <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
                     <div class="node">
                         <span class="d-flex align-items-center justify-content-center h-100">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>2</span>
                             @endif
                         </span>
                     </div>
                     Hồ sơ được duyệt
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="node">
                         <span class="d-flex align-items-center justify-content-center h-100">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>3</span>
                             @endif
                         </span>
                     </div>
                     Đã nộp tiền
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="node">
                         <span class="d-flex align-items-center justify-content-center h-100">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>4</span>
                             @endif
                         </span>
                     </div>
                     Đoàn ra nghị quyết, kèm Danh sách
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="node">
                         <span class="d-flex align-items-center justify-content-center h-100">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>5</span>
                             @endif
                         </span>
                     </div>
@@ -69,15 +65,15 @@
                 </div>
             </div>
 
+            @php($sn = 0)
             <div class="wizard-vertical px-4 mb-4">
-                @php($sn = 1)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step >= ++$sn ? 'complete' : ''}}">
                     <div class="step-header">
                         <div class="node">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>1</span>
                             @endif
                         </div>
                         <span>Bước 01: Đề nghị Kết nạp và Cấp thẻ</span>
@@ -87,7 +83,9 @@
                         @if ($progress->current_step > $sn)
                         <a href="#!" class="badge badge-white border rounded-pill ml-2">In file</a> <br>
                         @else
-                        <a href="#!" class="badge badge-white border rounded-pill ml-2">Lập giấy tại đây</a> <br>
+                        <a href="#!" class="badge badge-white border rounded-pill ml-2" data-toggle="modal" data-target="#documentFormModal">
+                            Lập giấy tại đây
+                        </a> <br>
                         @endif
                         <span>Nội dung 1: Giấy đề nghị gia nhập Đoàn Luật sư TP.Đà Nẵng</span> <br>
                         <span>Nội dung 2: Bản sao CCHN Luật sư (02 bản có chứng thực)</span> <br>
@@ -98,14 +96,13 @@
                         </span>
                     </div>
                 </div>
-                @php($sn++)
                 <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
                     <div class="step-header">
                         <div class="node">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>2</span>
                             @endif
                         </div>
                         <span>Bước 02: Nhân sự duyệt hồ sơ</span>
@@ -119,14 +116,13 @@
                         @endif
                     </div>
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="step-header">
                         <div class="node">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>3</span>
                             @endif
                         </div>
                         <span>Bước 03: Nộp phí gia nhập</span>
@@ -136,20 +132,19 @@
                         @if ($progress->current_step > $sn)
                         <span class="badge badge-primary rounded-pill ml-2">Đã nộp</span>
                         @elseif ($progress->current_step == $sn)
-                        <a href="#!" class="badge badge-white rounded-pill ml-2">Nộp tiền</a>
+                        <a href="#!" class="badge badge-white border rounded-pill ml-2">Nộp tiền</a>
                         @else
                         <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa nộp</span>
                         @endif
                     </div>
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="step-header">
                         <div class="node">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>4</span>
                             @endif
                         </div>
                         <span>Bước 04: Đoàn ra Nghị quyết kèm Danh sách</span>
@@ -157,23 +152,31 @@
                     <div class="step-content">
                     </div>
                 </div>
-                @php($sn++)
-                <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                     <div class="step-header">
                         <div class="node">
                             @if ($progress->current_step > $sn)
-                                <i class="icon-check2 icon-2x"></i>
+                            <i class="icon-check2 icon-2x"></i>
                             @else
-                                {{ $sn }}
+                            <span>5</span>
                             @endif
                         </div>
                         <span>Bước 05: Trả thẻ kèm quyết định</span>
                     </div>
                     <div class="step-content">
                         <span>Đoàn trả Quyết định kết nạp</span>
-                        <span class="badge badge-light border text-muted rounded-pill ml-2">Chưa trả</span> <br>
-                        <span>Đoàn trả thẻ Luật sư</span>
+                        @if ($progress->current_step > $sn)
+                        <span class="badge badge-primary rounded-pill ml-2">Đã trả</span>
+                        @else
                         <span class="badge badge-light border text-muted rounded-pill ml-2">Chưa trả</span>
+                        @endif
+                        <br>
+                        <span>Đoàn trả thẻ Luật sư</span>
+                        @if ($progress->current_step > ++$sn)
+                        <span class="badge badge-primary rounded-pill ml-2">Đã trả</span>
+                        @else
+                        <span class="badge badge-light border text-muted rounded-pill ml-2">Chưa trả</span>
+                        @endif
                     </div>
                 </div>
             </div>

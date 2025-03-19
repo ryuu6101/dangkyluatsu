@@ -43,12 +43,20 @@ class Document extends Model
     public function progress() {
         return $this->hasOne(Progress::class, 'document_id');
     }
+
+    public function secondary_document() {
+        return $this->hasOne(Document::class, 'parrent_id');
+    }
+
+    public function organization() {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
     
     public function getLawDegreeAttribute() {
         return $this->degrees->where('degree_type_id', 1)->first();
     }
 
     public function getGraduateDegreeAttribute() {
-        return $this->degree->where('degree_type_id', 2)->first();
+        return $this->degrees->where('degree_type_id', 2)->first();
     }
 }

@@ -45,12 +45,6 @@
                     <div class="text-uppercase font-size-xs line-height-xs mt-1">Menu</div> 
                     <i class="icon-menu" title="Main"></i>
                 </li>
-                <li class="nav-item">
-                    <a href="#!" class="nav-link {{ $route == 'admin.dashboard.index' ? 'active' : '' }}">
-                        <i class="icon-home4"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
 
                 <li class="nav-item">
                     <a href="{{ route('admin.documents.index') }}" 
@@ -61,10 +55,26 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.accounts.index') }}" 
+                    class="nav-link {{ $route == 'admin.accounts.index' ? 'active' : '' }}">
+                        <i class="icon-wrench"></i>
+                        <span>Quản trị viên</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.mail-config.index') }}" 
                     class="nav-link {{ $route == 'admin.mail-config.index' ? 'active' : '' }}">
                         <i class="icon-mention"></i>
                         <span>Cấu hình gửi mail</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.site-config.index') }}" 
+                    class="nav-link {{ $route == 'admin.site-config.index' ? 'active' : '' }}">
+                        <i class="icon-sphere"></i>
+                        <span>Cấu hình website</span>
                     </a>
                 </li>
             </ul>

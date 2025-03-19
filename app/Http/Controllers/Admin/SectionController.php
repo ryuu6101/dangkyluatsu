@@ -45,12 +45,23 @@ class SectionController extends Controller
     }
 
     public function document_detail($id) {
+        $document = $this->documentRepos->find($id);
+        if (!$document) return abort(404);
+
         return view('admin.sections.document-detail.index')->with([
-            'document' => $this->documentRepos->find($id),
+            'document' => $document,
         ]);
+    }
+
+    public function accounts() {
+        return view('admin.sections.admins.index');
     }
 
     public function mail_config() {
         return view('admin.sections.mail-config.index');
+    }
+
+    public function site_config() {
+        return view('admin.sections.site-config.index');
     }
 }

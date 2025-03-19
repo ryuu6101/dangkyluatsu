@@ -15,7 +15,7 @@
                 </li>
 
                 <li class="nav-item ml-3">
-                    <form action="{{ route('logout') }}" id="logout">@csrf</form>
+                    <form action="{{ route('logout') }}" id="logout" method="post">@csrf</form>
                     <a href="javascript:void" onclick="document.getElementById('logout').submit()" class="text-white">
                         Đăng xuất
                     </a>

@@ -1,4 +1,3 @@
-let family_member_count = 0;
 function add_family_member_row() {
     let count = family_member_count++;
 
@@ -42,7 +41,7 @@ function add_family_member_row() {
                 </div>
             </td>
             <td class="text-center">
-                <button type="button" class="btn btn-outline-danger" onclick="remove_row(this)">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="remove_row(this)">
                     <i class="icon-trash"></i>
                 </button>
             </td>
@@ -52,27 +51,16 @@ function add_family_member_row() {
     add_sequence_number($('.family-members-container'));
 }
 
-let working_record_count = 0;
 function add_working_record_row() {
     let count = working_record_count++;
 
     $(` <tr class="working-record-row">
             <td class="text-center sn-cell"></td>
             <td class="text-center">
-                <div class="row">
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm datepicker" required  
-                        placeholder="Nhập dữ liệu" name="working_records[${count}][from_date]"
-                        data-input-name="working_records_from_date" data-row="${count}" oninput="validate(this)">
-                        <span class="error-message text-danger"></span>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm datepicker" required  
-                        placeholder="Nhập dữ liệu" name="working_records[${count}][to_date]"
-                        data-input-name="working_records_to_date" data-row="${count}" oninput="validate(this)">
-                        <span class="error-message text-danger"></span>
-                    </div>
-                </div>
+                <input type="text" class="form-control form-control-sm daterange-picker" required 
+                placeholder="Nhập dữ liệu" name="working_records[${count}][workspan]"
+                data-input-name="working_records_workspan" oninput="validate(this)">
+                <span class="error-message text-danger"></span>
             </td>
             <td class="text-center">
                 <input type="text" class="form-control form-control-sm" required 
@@ -97,7 +85,7 @@ function add_working_record_row() {
                 <span class="error-message text-danger"></span>
             </td>
             <td class="text-center">
-                <button type="button" class="btn btn-outline-danger" onclick="remove_row(this)">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="remove_row(this)">
                     <i class="icon-trash"></i>
                 </button>
             </td>
@@ -121,10 +109,12 @@ function add_sequence_number(container) {
 }
 
 function validate(input) {
+    if (!input.hasAttribute("required")) return true;
+
     let next_sibling = input.nextElementSibling;
     if (next_sibling && !next_sibling.classList.contains("error-message")) return true;
     
-    let input_name = input.getAttribute("name");
+    let input_name = input.getAttribute("data-input-name") ?? input.getAttribute("name");
     let value = input.value;
     let is_datepicker = input.classList.contains("datepicker");
     let date = is_datepicker ? moment(value, "DD/MM/YYYY") : '';
@@ -167,7 +157,7 @@ function validate(input) {
     }
 
     // pattern = /^(1[0-2]|0?[1-9])([\/-])(3[01]|[12][0-9]|0?[1-9])(?:\2)(?:[0-9]{2})?[0-9]{2}$/;
-    pattern = /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/;
+    pattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0,1,2])\/(17|18|19|20|21)\d{2}$/;
     if (is_datepicker && !pattern.test(input.value)) {
         error_message.innerText = "Vui lòng nhập đúng định dạng ngày tháng";
         error_message.style.maxHeight = "200px";
@@ -180,67 +170,18 @@ function validate(input) {
         return false;
     }
 
-    pattern = /(?:(?:15|16|17|18|19|20|21)[0-9]{2})/g;
-    if (input.getAttribute("data-input-name") == "family_members_birth_year" && !pattern.test(input.value)) {
+    pattern = /^\d{4}$/;
+    if (input_name == "family_members_birth_year" && !pattern.test(input.value)) {
         error_message.innerText = "Vui lòng nhập đúng";
         error_message.style.maxHeight = "200px";
         return false;
     }
 
-    if (input.getAttribute("data-input-name") == "working_records_from_date") {
-        if (date.diff(moment()) >= 0) {
-            error_message.innerText = "Thời gian không hợp lệ";
-            error_message.style.maxHeight = "200px";
-
-            new Noty({
-                text: 'Ngày bắt đầu phải trước ngày hiện tại.',
-                type: 'error',
-            }).show();
-
-            return false;
-        }
-
-        let row = input.getAttribute("data-row");
-        let to_date = $(`input[data-input-name="working_records_to_date"][data-row="${row}"]`).val();
-        if (date.diff(moment(to_date, "DD/MM/YYYY")) >= 0) {
-            error_message.innerText = "Thời gian không hợp lệ";
-            error_message.style.maxHeight = "200px";
-
-            new Noty({
-                text: 'Ngày bắt đầu phải trước ngày kết thúc.',
-                type: 'error',
-            }).show();
-
-            return false;
-        }
-    }
-
-    if (input.getAttribute("data-input-name") == "working_records_to_date") {
-        if (date.diff(moment()) >= 0) {
-            error_message.innerText = "Thời gian không hợp lệ";
-            error_message.style.maxHeight = "200px";
-
-            new Noty({
-                text: 'Ngày kết thúc phải trước ngày hiện tại.',
-                type: 'error',
-            }).show();
-
-            return false;
-        }
-
-        let row = input.getAttribute("data-row");
-        let from_date = $(`input[data-input-name="working_records_from_date"][data-row="${row}"]`).val();
-        if (date.diff(moment(from_date, "DD/MM/YYYY")) <= 0) {
-            error_message.innerText = "Thời gian không hợp lệ";
-            error_message.style.maxHeight = "200px";
-
-            new Noty({
-                text: 'Ngày bắt đầu phải trước ngày kết thúc.',
-                type: 'error',
-            }).show();
-
-            return false;
-        }
+    pattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0,1,2])\/(17|18|19|20|21)\d{2}\s?-\s?(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0,1,2])\/(17|18|19|20|21)\d{2}$/;
+    if (input_name == "working_records_workspan" && !pattern.test(input.value)) {
+        error_message.innerText = "Vui lòng nhập đúng định dạng ngày tháng";
+        error_message.style.maxHeight = "200px";
+        return false;
     }
 
     return true;
@@ -268,7 +209,7 @@ function validateAll(formId) {
         };
     });
 
-    if (has_error) return;
+    if (has_error) return false;
 
     if ($('tbody.family-members-container').length && !$('tr.family-member-row').length) {
         new Noty({
@@ -281,7 +222,7 @@ function validateAll(formId) {
             behavior: "smooth",
         });
 
-        return;
+        return false;
     }
 
     if ($('tbody.working-records-container').length && !$('tr.working-record-row').length) {
@@ -295,13 +236,10 @@ function validateAll(formId) {
             behavior: "smooth",
         });
 
-        return;
+        return false;
     }
 
-    if ($('#cardIssuedModal').length) {
-        $('#cardIssuedModal').modal('show');
-        return;
-    }
+    return true;
 
-    form.submit();
+    // form.submit();
 }

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('document_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('from_date')->nullable();
-            $table->string('to_date')->nullable();
+            $table->string('workspan')->nullable();
             $table->string('job')->nullable();
             $table->string('workplace')->nullable();
             $table->string('position')->nullable();

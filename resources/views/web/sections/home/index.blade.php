@@ -68,7 +68,7 @@
             </div>
             <div class="modal-footer">
                 <a href="{{ route('member-register.index', ['option' => 'luat-su-moi']) }}" class="btn btn-sm btn-light">Chưa có</a>
-                <a href="{{ route('user-login.index') }}" class="btn btn-sm btn-primary">Đã có</a>
+                <a href="{{ route('member-register.index', ['option' => 'da-co-tai-khoan']) }}" class="btn btn-sm btn-primary">Đã có</a>
             </div>
         </div>
     </div>

@@ -10,25 +10,55 @@
 
 @include('web.sections.document-form.forms.'.$form)
 
-@include('web.components.term-and-condition')
+@isset($secondary_form)
+@include('web.sections.document-form.forms.'.$secondary_form)
+@endisset
+
+@include('web.components.term-and-condition', ['modal_size' => 'xl'])
 
 @endsection
 
 @push('scripts')
-<script src="https://unpkg.com/js-datepicker"></script>
 <script src="{{ asset('custom_assets/js/document_form.js') }}"></script>
 <script>
+    let family_member_count = 0;
+    let working_record_count = 0;
+
+    function submit(formId) {
+        if (validateAll(formId)) $('form#'+formId).trigger('submit');
+    }
+
     $(document).ready(function() {
         $('body').on('focus', '.datepicker:not(.has-datepicker)', function() {
             this.classList.add("has-datepicker");
-            datepicker(this, {
-                startDay: 1,
-                formatter: (input, date, instance) => {
-                    input.value = date.toLocaleDateString('en-GB');
-                },
-                onSelect: (instance, date) => {
-                    validate(this);
-                },
+            $(this).daterangepicker({
+                parentEl: '.document-form .card-body, .document-form.modal-body',
+                singleDatePicker: true,
+                showDropdowns: true,
+                autoUpdateInput: false,
+                autoApply: true,
+                buttonClasses: 'd-none',
+                maxDate: moment().format('MM/DD/YYYY'),
+            }).on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY')).trigger('input');
+            }).on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('').trigger('input');
+            });
+        }).on('focus', '.daterange-picker:not(.has-datepicker)', function() {
+            this.classList.add("has-datepicker");
+            $(this).daterangepicker({
+                parentEl: '.document-form .card-body, .document-form.modal-body',
+                showDropdowns: true,
+                autoUpdateInput: false,
+                autoApply: true,
+                buttonClasses: 'd-none',
+                maxDate: moment().format('MM/DD/YYYY'),
+            }).on('apply.daterangepicker', function(ev, picker) {
+                let start_date = picker.startDate.format('DD/MM/YYYY');
+                let end_date = picker.endDate.format('DD/MM/YYYY');
+                $(this).val(start_date + ' - ' + end_date).trigger('input');
+            }).on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('').trigger('input');
             });
         });
 
@@ -51,8 +81,16 @@
             $(`label[for="${input_id}"]`).children('span').text(file_count + ' file');
         });
 
-        $('input[type="text"],input[type="number"]').on('input', function() {validate(this)});
-        $('select').on('change', function() {validate(this)});
+        $('input[type="text"],input[type="number"]').on('input', function() {
+            if (validate(this) && $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).length) {
+                $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).val(this.value);
+            }
+        });
+        $('select').on('change', function() {
+            if (validate(this) && $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).length) {
+                $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).val(this.value);
+            }
+        });
 
         $('input#agreeTermAndCondition').on('change', function() {
             $('input#termAndConditionCheckbox').prop('checked', $('input#agreeTermAndCondition').is(":checked"));
@@ -74,6 +112,14 @@
                 $('button.submit-btn').prop("disabled", true);
             } else {
                 $('button.submit-btn').prop("disabled", false);
+            }
+        });
+
+        $('input.agreement-checkbox-secondary').on('change', function() {
+            if ($('input.agreement-checkbox-secondary').not(':checked').length) {
+                $('button.submit-btn-secondary').prop("disabled", true);
+            } else {
+                $('button.submit-btn-secondary').prop("disabled", false);
             }
         });
     });

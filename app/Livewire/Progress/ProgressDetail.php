@@ -14,17 +14,6 @@ class ProgressDetail extends Component
         2 => 'member-register',
         3 => 'card-issued',
     ];
-    public $progress_steps = [
-        1 => [],
-        2 => [
-            1 => 'Đề nghị Kết nạp và Cấp thẻ',
-            2 => 'Nhân sự duyệt hồ sơ',
-            3 => 'Nộp phí gia nhập',
-            4 => 'Đoàn ra Nghị quyết kèm Danh sách',
-            5 => 'Trả thẻ kèm quyết định',
-        ],
-        3 => [],
-    ];
 
     protected $listeners = ['get_data'];
 
@@ -43,7 +32,7 @@ class ProgressDetail extends Component
     }
 
     public function finished() {
-        if ($this->progress->current_step <= $this->progress->final_step) return;
+        if ($this->progress->current_step < $this->progress->final_step) return;
         $this->progress->update(['is_finished' => 1]);
         $this->document->update(['document_status_id' => 3]);
         $this->dispatch('refresh')->to(DocumentDetail::class);

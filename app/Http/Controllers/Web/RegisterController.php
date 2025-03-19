@@ -20,6 +20,22 @@ class RegisterController extends Controller
     protected $attachmentRepos;
     protected $attachmentFileRepos;
 
+    public $attachments_list = [
+        1 => [
+            'Giấy xác nhận của tổ chức hành nghề luật sư về việc nhận tập sự',
+            'Bản sao giấy chứng nhận tốt nghiệp đào tạo nghề Luật sư',
+            'Giấy tờ chứng minh thuộc trường hợp được giảm thời gian tập sự hành nghề luật sư (không bắt buộc)',
+            'Sơ yếu lí lịch có xác nhận của địa phương (không bắt buộc)',
+            'Quyết định thôi cán bộ công chức (không bắt buộc)',
+            'Bằng cử nhân luật hoặc Bằng thạc sỹ luật (Bản sao)',
+        ],
+        2 => [
+            'Bản sao chứng chỉ hành nghề luật sư',
+            'Phiếu lý lịch tư pháp (Trường hợp chứng chỉ hành nghề luật sư quá 6 tháng) (không bắt buộc)',
+            'Bản sao Quyết định nghỉ hưu hoặc Giấy xác nhận không phải là công chức (không bắt buộc)',
+        ],
+    ];
+
     public function __construct(
         DegreeRepositoryInterface $degreeRepos,
         DocumentRepositoryInterface $documentRepos,
@@ -40,18 +56,23 @@ class RegisterController extends Controller
         return view('web.sections.document-form.index')->with([
             'title' => 'Đăng ký thực tập',
             'form' => 'intern-register',
+            'attachments' => $this->attachments_list[1],
         ]);
     }
 
     public function member_register($option) {
-        if ($option == 'luat-su-moi') $form_type = 1;
-        elseif ($option == 'luat-su-chuyen-tu-doan-khac-ve') $form_type = 2;
+        if ($option == 'da-co-tai-khoan') return redirect()->route('user-login.index')->with('member_register', 1);
+
+        if ($option == 'luat-su-moi') $secondary_form = 'card-issued';
+        elseif ($option == 'luat-su-chuyen-tu-doan-khac-ve') $secondary_form = 'card-exchange';
         else return abort(404);
 
         return view('web.sections.document-form.index')->with([
             'title' => 'Đăng ký gia nhập đoàn luật sư',
             'form' => 'member-register',
-            'form_type' => $form_type,
+            'option' => $option,
+            'secondary_form' => $secondary_form,
+            'attachments' => $this->attachments_list[2],
         ]);
     }
 
@@ -63,16 +84,16 @@ class RegisterController extends Controller
 
         $document = $this->document_create($params);
 
-        if ($document) {
+        if (!$document) {
             return redirect()->route('home')->with('noty', [
-                'type' => 'success',
-                'message' => 'Nộp đơn đăng ký tập sự thành công',
+                'type' => 'error',
+                'message' => 'Đã xảy ra lỗi',
             ]);
         }
 
         return redirect()->route('home')->with('noty', [
-            'type' => 'error',
-            'message' => 'Đã xảy ra lỗi',
+            'type' => 'success',
+            'message' => 'Nộp đơn đăng ký tập sự thành công',
         ]);
     }
 
@@ -82,18 +103,42 @@ class RegisterController extends Controller
         unset($params['_method']);
         unset($params['_token']);
 
+        if (isset($params['secondary_form'])) {
+            $secondary_params = $params['secondary_form'];
+            $secondary_params['portrait_pic'] = $params['portrait_pic'];
+            unset($params['secondary_form']);
+        }
+
+        if ($request->input('return_back')) {
+            $redirect = redirect()->back();
+        } else {
+            $redirect = redirect()->route('home');
+        }
+
         $document = $this->document_create($params);
 
-        if ($document) {
-            return redirect()->route('home')->with('noty', [
-                'type' => 'success',
-                'message' => 'Nộp đơn xin gia nhập đoàn luật sư thành công',
+        if (!$document) {
+            return $redirect->with('noty', [
+                'type' => 'error',
+                'message' => 'Đã xảy ra lỗi',
             ]);
         }
 
-        return redirect()->route('home')->with('noty', [
-            'type' => 'error',
-            'message' => 'Đã xảy ra lỗi',
+        if (isset($secondary_params)) {
+            $secondary_params['parrent_id'] = $document->id;
+            $secondary_document = $this->document_create($secondary_params);
+    
+            if (!$secondary_document) {
+                return $redirect->with('noty', [
+                    'type' => 'error',
+                    'message' => 'Đã xảy ra lỗi',
+                ]);
+            }
+        }
+        
+        return $redirect->with('noty', [
+            'type' => 'success',
+            'message' => 'Nộp đơn xin gia nhập đoàn luật sư thành công',
         ]);
     }
 
@@ -108,9 +153,11 @@ class RegisterController extends Controller
         unset($params['working_records']);
         unset($params['attachments']);
 
-        $path = $params['portrait_pic']->store('public/upload');
-        $params['portrait_pic'] = 'storage/'.substr($path, strlen('public/'));
         $params['fullname'] = mb_strtoupper($params['fullname']);
+        if (!is_string($params['portrait_pic'])) {
+            $path = $params['portrait_pic']->store('public/upload');
+            $params['portrait_pic'] = 'storage/'.substr($path, strlen('public/'));
+        }
 
         $document = $this->documentRepos->create($params);
 

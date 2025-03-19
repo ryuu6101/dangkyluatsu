@@ -77,6 +77,17 @@
         });
     </script>
 
+	<script>
+		$(document).ready(function() {
+			Livewire.on('show-message', function(event) {
+				new Noty({
+					text: event.message,
+					type: event.type,
+				}).show();
+			});
+		});
+	</script>
+
     @if (session('noty'))
 	<script>
 		let noty = {{ Js::from(session('noty')) }}

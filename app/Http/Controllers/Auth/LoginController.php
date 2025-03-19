@@ -18,6 +18,8 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $credentials['is_actived'] = true;
+
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('admin.home');
@@ -40,6 +42,15 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt($credentials)) {
+            $user = auth()->user();
+            if ($request->input('member_register') && !$user->progresses->where('progress_type_id', 2)->first()) {
+                $user->progresses()->create([
+                    'progress_type_id' => 2,
+                    'current_step' => 1,
+                    'final_step' => 5,
+                ]);
+            }
+
             $request->session()->regenerate();
             return redirect()->route('user.home');
         }

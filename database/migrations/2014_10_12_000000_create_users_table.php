@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('profile_pic')->nullable();
             $table->string('fullname')->nullable();
-            $table->integer('gender')->default(0);
+            $table->string('gender')->nullable();
             $table->string('birthday')->nullable();
             $table->string('birthplace')->nullable();
             $table->string('ethnic')->nullable();

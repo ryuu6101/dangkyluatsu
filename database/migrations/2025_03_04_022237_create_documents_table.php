@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('portrait_pic')->nullable();
             $table->string('fullname')->nullable();
-            $table->integer('gender')->default(0);
+            $table->string('gender')->nullable();
             $table->string('birthday')->nullable();
             $table->string('birthplace')->nullable();
             $table->string('ethnic')->nullable();
@@ -57,11 +57,13 @@ return new class extends Migration
             $table->string('instructor_number')->nullable();
             $table->longText('reward_and_discipline')->nullable();
             $table->longText('crime_record')->nullable();
-            $table->string('joining_desision')->nullable();
+            $table->string('admission_number')->nullable();
+            $table->string('admission_date')->nullable();
             $table->string('lawyer_card_number')->nullable();
             $table->string('lawyer_card_date')->nullable();
-            $table->string('reissued_reason')->nullable();
+            $table->string('card_exchange_reason')->nullable();
             $table->string('city')->nullable();
+            $table->unsignedBigInteger('organization_id')->nullable();
             $table->unsignedBigInteger('document_status_id')->default(1);
             $table->timestamps();
         });

@@ -1,6 +1,6 @@
 <div class="container">
     <form action="{{ route('intern-register.post') }}" autocomplete="off" class="document-form" 
-    novalidate method="post" id="internForm" enctype="multipart/form-data">
+    novalidate method="post" id="internRegisterForm" enctype="multipart/form-data">
         @method("post")
         @csrf
         <input type="hidden" name="document_type_id" value="1">
@@ -19,8 +19,7 @@
     
                 <div class="row mb-3">
                     <div class="col-2">
-                        <input type="file" class="invisible" style="height: 0" name="profile[portrait_pic]" 
-                        id="portraitPicture" accept="image/*">
+                        <input type="file" class="invisible" style="height: 0" name="portrait_pic" id="portraitPicture" accept="image/*">
                         <label class="border border-dark d-flex align-items-center justify-content-center" 
                         style="aspect-ratio: 3/4; width:8rem" type="button" for="portraitPicture">
                             <h3 class="text-uppercase text-center">
@@ -49,12 +48,13 @@
                     </div>
                 </div>
     
+                @php($sn = 1)
                 <div class="row flex-nowrap mb-2">
                     <div class="col-auto">
-                        <strong>1. Tên tôi là (ghi bằng chữ in hoa): </strong>
+                        <strong>{{ $sn++ }}. Tên tôi là (ghi bằng chữ in hoa): </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input text-uppercase" name="profile[fullname]" required>
+                        <input type="text" class="dotted-line-input text-uppercase" name="fullname" required>
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -63,14 +63,14 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>2. Giới tính: </strong>
+                                <strong>{{ $sn++ }}. Giới tính: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required name="profile[gender]">
+                                <select class="select-box dotted-line-input" required name="gender">
                                     <option value="" hidden>Chọn</option>
-                                    <option value="0" class="text-dark">Nam</option>
-                                    <option value="1" class="text-dark">Nữ</option>
-                                    <option value="2" class="text-dark">Khác</option>
+                                    <option value="Nam" class="text-dark">Nam</option>
+                                    <option value="Nữ" class="text-dark">Nữ</option>
+                                    <option value="Khác" class="text-dark">Khác</option>
                                 </select>
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -79,11 +79,10 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>3. Ngày sinh: </strong>
+                                <strong>{{ $sn++ }}. Ngày sinh: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required 
-                                placeholder="DD/MM/YYYY" name="profile[birthday]">
+                                <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="birthday">
                                 <span class="error-message text-danger"></span>
                                 <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
@@ -94,10 +93,10 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>4. Quốc tịch: </strong>
+                                <strong>{{ $sn++ }}. Quốc tịch: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required readonly value="Việt Nam" name="profile[nationality]">
+                                <input type="text" class="dotted-line-input" required readonly value="Việt Nam" name="nationality">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -108,10 +107,10 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>5. Dân tộc: </strong>
+                                <strong>{{ $sn++ }}. Dân tộc: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="profile[ethnic]">
+                                <input type="text" class="dotted-line-input" required name="ethnic">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -119,10 +118,10 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>6. Tôn giáo: </strong>
+                                <strong>{{ $sn++ }}. Tôn giáo: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="profile[religious]">
+                                <input type="text" class="dotted-line-input" required name="religious">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -130,10 +129,10 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>7. Nơi sinh: </strong>
+                                <strong>{{ $sn++ }}. Nơi sinh: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required name="profile[birthplace]">
+                                <select class="select-box dotted-line-input" required name="birthplace">
                                     <option value="" hidden>Chọn</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
                                 </select>
@@ -145,20 +144,20 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>8. Nơi thường trú: </strong>
+                        <strong>{{ $sn++ }}. Nơi thường trú: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="profile[residence_place]">
+                        <input type="text" class="dotted-line-input" required name="residence_place">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>9. Chỗ ở hiện nay: </strong>
+                        <strong>{{ $sn++ }}. Chỗ ở hiện nay: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="profile[current_place]">
+                        <input type="text" class="dotted-line-input" required name="current_place">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -167,10 +166,10 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>10. Điện thoại: </strong>
+                                <strong>{{ $sn++ }}. Điện thoại: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="profile[phone_number]">
+                                <input type="text" class="dotted-line-input" required name="phone_number">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -178,10 +177,10 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>11. Email: </strong>
+                                <strong>{{ $sn++ }}. Email: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" required name="profile[email]">
+                                <input type="text" class="dotted-line-input" required name="email">
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -190,7 +189,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>12. Nghề nghiệp hiện tại: </strong>
+                        <strong>{{ $sn++ }}. Nghề nghiệp hiện tại: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="current_job">
@@ -200,7 +199,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>13. Nơi làm việc: </strong>
+                        <strong>{{ $sn++ }}. Nơi làm việc: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="workplace">
@@ -210,10 +209,10 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>14. CCCD: </strong>
+                        <strong>{{ $sn++ }}. CCCD: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="profile[id_card_number]">
+                        <input type="text" class="dotted-line-input" required name="id_card_number">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -222,11 +221,10 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>15. Ngày cấp: </strong>
+                                <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required 
-                                placeholder="DD/MM/YYYY" name="profile[id_card_date]">
+                                <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="id_card_date">
                                 <span class="error-message text-danger"></span>
                                 <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
@@ -237,10 +235,10 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>16. Nơi cấp: </strong>
+                                <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required required name="profile[id_card_place]">
+                                <select class="select-box dotted-line-input" required required name="id_card_place">
                                     <option value="" hidden>Chọn tỉnh/ thành phố</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
                                 </select>
@@ -252,7 +250,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>17. HOÀN CẢNH GIA ĐÌNH</strong> <br>
+                        <strong>{{ $sn++ }}. HOÀN CẢNH GIA ĐÌNH</strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ họ tên, năm sinh, nghề nghiệp, nơi công tác của bố mẹ đẻ, anh chị em ruột, vợ chồng, con)
                         </strong>
@@ -287,7 +285,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>18. QUÁ TRÌNH HOẠT ĐỘNG CỦA BẢN THÂN</strong> <br>
+                        <strong>{{ $sn++ }}. QUÁ TRÌNH HOẠT ĐỘNG CỦA BẢN THÂN</strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ từ năm 18 tuổi đến nay. Ghi chú: Phải khai liền mạch quá trình hoạt động của bản thân)
                         </strong>
@@ -325,13 +323,14 @@
                     </div>
                 </div>
     
+                @php($sn = 1)
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>1. Số bằng cử nhân Luật: </strong>
+                        <strong>{{ $sn++ }}. Số bằng cử nhân Luật: </strong>
                     </div>
                     <div class="col">
-                        <input type="hidden" name="degree[1][degree_type_id]" value="1">
-                        <input type="text" class="dotted-line-input" required name="degree[1][degree_number]">
+                        <input type="hidden" name="degrees[1][degree_type_id]" value="1">
+                        <input type="text" class="dotted-line-input" required name="degrees[1][degree_number]">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -340,7 +339,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>2. Ngày cấp: </strong>
+                                <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required 
@@ -355,7 +354,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>3. Nơi cấp: </strong>
+                                <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="degrees[1][degree_place]">
@@ -367,10 +366,10 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>4. Số giấy chứng nhận tốt nghiệp: </strong>
+                        <strong>{{ $sn++ }}. Số giấy chứng nhận tốt nghiệp: </strong>
                     </div>
                     <div class="col">
-                        <input type="hidden" name="degree[2][degree_type_id]" value="2">
+                        <input type="hidden" name="degrees[2][degree_type_id]" value="2">
                         <input type="text" class="dotted-line-input" required name="degrees[2][degree_number]">
                         <span class="error-message text-danger"></span>
                     </div>
@@ -380,7 +379,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>5. Ngày cấp: </strong>
+                                <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required 
@@ -395,7 +394,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>6. Nơi cấp: </strong>
+                                <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="degrees[2][degree_place]">
@@ -407,7 +406,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>7. Thời gian tham dự khóa đào tạo nghề luật sư: </strong>
+                        <strong>{{ $sn++ }}. Thời gian tham dự khóa đào tạo nghề luật sư: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="educated_duration">
@@ -417,7 +416,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>8. Số thẻ luật sư hướng dẫn: </strong>
+                        <strong>{{ $sn++ }}. Số thẻ luật sư hướng dẫn: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="instructor_number">
@@ -427,7 +426,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>9. Khen thưởng - Kỷ luật: </strong> <br>
+                        <strong>{{ $sn++ }}. Khen thưởng - Kỷ luật: </strong> <br>
                         <strong class="text-muted">(Ghi rõ hình thức khen thưởng kỷ luật)</strong>
                     </div>
                     <div class="col">
@@ -438,7 +437,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>10. Bị truy cứu trách nhiệm hình sự: </strong> <br>
+                        <strong>{{ $sn++ }}. Bị truy cứu trách nhiệm hình sự: </strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ có hay không việc bị truy cứu trách nhiệm hình sự; nếu đã bị truy cứu trách nhiệm hình sự thì ghi rõ tội danh, 
                             số bản án, cơ quan ra bản án và gửi kèm bản án, văn bản xác nhận xóa án tích của cơ quan có thẩm quyền)
@@ -489,14 +488,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php($attachments = [
-                                    'Giấy xác nhận của tổ chức hành nghề luật sư về việc nhận tập sự',
-                                    'Bản sao giấy chứng nhận tốt nghiệp đào tạo nghề Luật sư',
-                                    'Giấy tờ chứng minh thuộc trường hợp được giảm thời gian tập sự hành nghề luật sư (không bắt buộc)',
-                                    'Sơ yếu lí lịch có xác nhận của địa phương (không bắt buộc)',
-                                    'Quyết định thôi cán bộ công chức (không bắt buộc)',
-                                    'Bằng cử nhân luật hoặc Bằng thạc sỹ luật (Bản sao)',
-                                ])
                                 @foreach ($attachments as $attachment)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
@@ -544,7 +535,7 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="validateAll('internForm')">
+                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="submit('internRegisterForm')">
                     Đăng ký
                 </button>
             </div>

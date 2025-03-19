@@ -1,24 +1,117 @@
-@foreach ($progress_steps[$progress->progress_type_id] as $key => $step)
-<div class="row mb-2">
-    <div class="col-auto">
-        @if ($progress->current_step > $key)
-        <div class="node rounded-circle border border-primary text-primary">
-            <i class="icon-checkmark2"></i>
-        </div>
-        @elseif ($progress->current_step == $key)
-        <div class="node rounded-circle btn btn-outline-success" wire:click.prevent="next_step({{ $key + 1 }})">
-            <span>{{ $key }}</span>
-        </div>
-        @else
-        <div class="node rounded-circle border text-muted">
-            <span>{{ $key }}</span>
-        </div>
-        @endif
-    </div>
+<div class="row">
     <div class="col">
-        <div class="d-flex align-items-center h-100 {{ $progress->current_step < $key ? 'text-muted' : '' }}">
-            <strong>Bước 0{{ $key }}: {{ $step }}</strong>
+        <div class="wizard-vertical pl-4 mb-4">
+            @php($sn = 0)
+            <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
+                <div class="step-header">
+                    <div class="node">
+                        @if ($progress->current_step > $sn)
+                        <i class="icon-check2 icon-2x"></i>
+                        @else
+                        <span>1</span>
+                        @endif
+                    </div>
+                    <span>Bước 01: Đề nghị Kết nạp và Cấp thẻ</span>
+                </div>
+            </div>
+            <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
+                <div class="step-header">
+                    <div class="node">
+                        @if ($progress->current_step > $sn)
+                        <i class="icon-check2 icon-2x"></i>
+                        @else
+                        <span>2</span>
+                        @endif
+                    </div>
+                    <span>Bước 02: Nhân sự duyệt hồ sơ</span>
+                    @if ($progress->current_step > $sn)
+                    <span class="badge badge-primary rounded-pill ml-2">Đã duyệt</span>
+                    @elseif ($progress->current_step == $sn)
+                    <a href="#!" class="badge badge-white border rounded-pill ml-2" wire:click.prevent="next_step({{ $sn + 1 }})">
+                        Chưa duyệt
+                    </a>
+                    @else
+                    <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa duyệt</span>
+                    @endif
+                </div>
+            </div>
+            <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
+                <div class="step-header">
+                    <div class="node">
+                        @if ($progress->current_step > $sn)
+                        <i class="icon-check2 icon-2x"></i>
+                        @else
+                        <span>3</span>
+                        @endif
+                    </div>
+                    <span>Bước 03: Nộp phí gia nhập</span>
+                    @if ($progress->current_step > $sn)
+                    <span class="badge badge-primary rounded-pill ml-2">Đã nộp</span>
+                    @elseif ($progress->current_step == $sn)
+                    <a href="#!" class="badge badge-white border rounded-pill ml-2" wire:click.prevent="next_step({{ $sn + 1 }})">
+                        Chưa nộp
+                    </a>
+                    @else
+                    <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa nộp</span>
+                    @endif
+                </div>
+            </div>
+            <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
+                <div class="step-header">
+                    <div class="node">
+                        @if ($progress->current_step > $sn)
+                        <i class="icon-check2 icon-2x"></i>
+                        @else
+                        <span>4</span>
+                        @endif
+                    </div>
+                    <span>Bước 04: Đoàn ra Nghị quyết kèm Danh sách</span>
+                    @if ($progress->current_step > $sn)
+                    <span class="badge badge-primary rounded-pill ml-2">Đã có</span>
+                    @elseif ($progress->current_step == $sn)
+                    <a href="#!" class="badge badge-white border rounded-pill ml-2" wire:click.prevent="next_step({{ $sn + 1 }})">
+                        Chưa có
+                    </a>
+                    @else
+                    <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa có</span>
+                    @endif
+                </div>
+            </div>
+            <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
+                <div class="step-header">
+                    <div class="node">
+                        @if ($progress->current_step > $sn)
+                        <i class="icon-check2 icon-2x"></i>
+                        @else
+                        <span>5</span>
+                        @endif
+                    </div>
+                    <span>Bước 05: Trả thẻ kèm quyết định</span>
+                </div>
+                <div class="step-content">
+                    <span>Đoàn trả Quyết định kết nạp</span>
+                    @if ($progress->current_step > $sn)
+                    <span class="badge badge-primary rounded-pill ml-2">Đã trả</span>
+                    @elseif ($progress->current_step == $sn)
+                    <a href="#!" class="badge badge-white border rounded-pill ml-2" wire:click.prevent="next_step({{ $sn + 1 }})">
+                        Chưa trả
+                    </a>
+                    @else
+                    <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa trả</span>
+                    @endif
+                    <br>
+                    <span>Đoàn trả thẻ Luật sư</span>
+                    @if ($progress->current_step > ++$sn)
+                    <span class="badge badge-primary rounded-pill ml-2">Đã trả</span>
+                    @elseif ($progress->current_step == $sn)
+                    <a href="#!" class="badge badge-white border rounded-pill ml-2" wire:click.prevent="next_step({{ $sn + 1 }})">
+                        Chưa trả
+                    </a>
+                    @else
+                    <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa trả</span>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>
-@endforeach

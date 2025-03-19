@@ -6,9 +6,18 @@ class DocumentFilter extends QueryFilter
 {
     protected $filterable = [
         'id',
+        'document_status_id',
     ];
     
-    public function filterName($name) {
-        return $this->builder->where('name', 'like', '%' . $name . '%');
+    public function filterFullname($name) {
+        return $this->builder->where('fullname', 'like', '%' . $name . '%');
+    }
+
+    public function filterCreatedAtStart($date) {
+        return $this->builder->whereDate('created_at', '>=', $date);
+    }
+
+    public function filterCreatedAtEnd($date) {
+        return $this->builder->whereDate('created_at', '<=', $date);
     }
 }

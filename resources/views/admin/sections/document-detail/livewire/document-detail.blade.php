@@ -14,14 +14,25 @@
                     </h4>
                 </div>
             </div>
-            <div class="row mb-4 pl-3">
+            <div class="row mb-3 pl-3">
                 <div class="col">
-                    <a href="#!" class="text-dark" data-toggle="modal" data-target="#documentFormModal">
+                    <a href="#!" class="text-dark d-block mb-2" data-toggle="modal" 
+                    data-target="#documentFormModal" data-document-id="{{ $document->id }}">
                         <strong>
                             <i class="icon-file-text3 mr-2"></i>
                             <u>{{ $document->type->name }}</u>
                         </strong>
                     </a>
+
+                    @if ($secondary_document = $document->secondary_document)
+                    <a href="#!" class="text-dark d-block mb-2" data-toggle="modal" 
+                    data-target="#documentFormModal" data-document-id="{{ $secondary_document->id }}">
+                        <strong>
+                            <i class="icon-file-text3 mr-2"></i>
+                            <u>{{ $secondary_document->type->name }}</u>
+                        </strong>
+                    </a>
+                    @endif
                 </div>
             </div>
             <div class="row">
@@ -33,12 +44,11 @@
             </div>
             <div class="row mb-2 pl-3">
                 <div class="col">
-                    @foreach ($document->attachments as $attachment)
+                    @foreach ($document->attachments->merge($document->secondary_document->attachments ?? []) as $attachment)
                     <strong class="d-block mt-2">
-                        {{-- <i class="icon-files-empty2 mr-2"></i> --}}
                         {{ $loop->iteration }}. 
                         {{ $attachment->name }} 
-                        <span class="text-primary ml-2">({{ $attachment->files->count() }} file)</span>
+                        <span class="text-primary text-nowrap ml-2">({{ $attachment->files->count() }} file)</span>
                     </strong>
                     @foreach ($attachment->files as $file)
                     <a href="#!" class="d-block mb-1 ml-3 text-dark" data-toggle="modal" 
@@ -53,10 +63,10 @@
         </div>
         <div class="card-footer text-right">
             @if (($status = $document->document_status_id) == 1)
-            <button type="button" class="btn btn-success mr-2" wire:click.prevent="approve">
-                Tạo tài khoản và tiến hành kết nạp
+            <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#documentApproveModal">
+                Duyệt hồ sơ
             </button>
-            <button type="button" class="btn btn-danger">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#documentDeclineModal">
                 Từ chối
             </button>
             @elseif ($status == 2)

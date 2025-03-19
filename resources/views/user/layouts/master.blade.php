@@ -23,6 +23,7 @@
 	<script src="{{ asset('global_assets/js/plugins/visualization/d3/d3_tooltip.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
+	<script src="{{ asset('global_assets/js/plugins/notifications/noty.min.js') }}"></script>
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<!-- /theme JS files -->
@@ -39,6 +40,8 @@
     </style>
 
 	@stack('styles')
+
+	@livewireStyles
 </head>
 
 <body>
@@ -53,10 +56,10 @@
         <!-- Main content -->
 		<div class="content-wrapper">
 
+			@include('user.layouts.header')
+
 			<!-- Inner content -->
 			<div class="content-inner">
-
-                @include('user.layouts.header')
 
                 <!-- Content area -->
 				<div class="content">
@@ -76,6 +79,38 @@
 
 	</div>
 	<!-- /page content -->
+
+	@livewireScripts
+
+	<script>
+        Noty.overrideDefaults({
+            theme: 'limitless',
+            layout: 'topRight',
+            type: 'alert',
+            timeout: 2500
+        });
+    </script>
+
+	<script>
+		$(document).ready(function() {
+			Livewire.on('show-message', function(event) {
+				new Noty({
+					text: event.message,
+					type: event.type,
+				}).show();
+			});
+		});
+	</script>
+
+    @if (session('noty'))
+	<script>
+		let noty = {{ Js::from(session('noty')) }}
+		new Noty({
+			text: noty['message'],
+			type: noty['type'],
+		}).show();
+	</script>
+	@endif
 
 	@stack('scripts')
 </body>

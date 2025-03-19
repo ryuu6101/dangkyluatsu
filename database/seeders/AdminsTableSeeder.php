@@ -17,6 +17,7 @@ class AdminsTableSeeder extends Seeder
             [
                 'username' => 'admin',
                 'password' => bcrypt('Cnpt@123'),
+                'role_id' => 1,
             ]
         ];
 

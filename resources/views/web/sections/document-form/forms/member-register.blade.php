@@ -1,11 +1,11 @@
 <div class="container">
     <form action="{{ route('member-register.post') }}" autocomplete="off" class="document-form" 
-    novalidate method="post" id="memberForm" enctype="multipart/form-data">
+    novalidate method="post" id="memberRegisterForm" enctype="multipart/form-data">
         @method("post")
         @csrf
         <input type="hidden" name="document_type_id" value="2">
         <div class="card shadow mt-5">
-            <div class="card-body py-3" style="padding: 0 6rem">
+            <div class="card-body" style="padding: 1.25rem 6rem">
                 <div class="row">
                     <div class="col">
                         <div class="text-center">
@@ -42,9 +42,10 @@
                     </div>
                 </div>
     
+                @php($sn = 1)
                 <div class="row flex-nowrap mb-2">
                     <div class="col-auto">
-                        <strong>1. Tên tôi là (ghi bằng chữ in hoa): </strong>
+                        <strong>{{ $sn++ }}. Tên tôi là (ghi bằng chữ in hoa): </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input text-uppercase" name="fullname" required>
@@ -56,14 +57,14 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>2. Giới tính: </strong>
+                                <strong>{{ $sn++ }}. Giới tính: </strong>
                             </div>
                             <div class="col">
                                 <select class="select-box dotted-line-input" required name="gender">
                                     <option value="" hidden>Chọn</option>
-                                    <option value="0" class="text-dark">Nam</option>
-                                    <option value="1" class="text-dark">Nữ</option>
-                                    <option value="2" class="text-dark">Khác</option>
+                                    <option value="Nam" class="text-dark">Nam</option>
+                                    <option value="Nữ" class="text-dark">Nữ</option>
+                                    <option value="Khác" class="text-dark">Khác</option>
                                 </select>
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -72,7 +73,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>3. Ngày sinh: </strong>
+                                <strong>{{ $sn++ }}. Ngày sinh: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="birthday">
@@ -86,7 +87,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>4. Quốc tịch: </strong>
+                                <strong>{{ $sn++ }}. Quốc tịch: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required readonly value="Việt Nam" name="nationality">
@@ -100,7 +101,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>5. Dân tộc: </strong>
+                                <strong>{{ $sn++ }}. Dân tộc: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="ethnic">
@@ -111,7 +112,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>6. Tôn giáo: </strong>
+                                <strong>{{ $sn++ }}. Tôn giáo: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="religious">
@@ -122,7 +123,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>7. Nơi sinh: </strong>
+                                <strong>{{ $sn++ }}. Nơi sinh: </strong>
                             </div>
                             <div class="col">
                                 <select class="select-box dotted-line-input" required name="birthplace">
@@ -137,7 +138,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>8. Nơi thường trú: </strong>
+                        <strong>{{ $sn++ }}. Nơi thường trú: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="residence_place">
@@ -147,7 +148,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>9. Chỗ ở hiện nay: </strong>
+                        <strong>{{ $sn++ }}. Chỗ ở hiện nay: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="current_place">
@@ -159,7 +160,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>10. Điện thoại: </strong>
+                                <strong>{{ $sn++ }}. Điện thoại: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="phone_number">
@@ -170,7 +171,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>11. Email: </strong>
+                                <strong>{{ $sn++ }}. Email: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="email">
@@ -182,7 +183,7 @@
     
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>12. Nghề nghiệp trước đây: </strong>
+                        <strong>{{ $sn++ }}. Nghề nghiệp trước đây: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="previous_job">
@@ -192,7 +193,7 @@
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>13. CCCD: </strong>
+                        <strong>{{ $sn++ }}. CCCD: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="id_card_number">
@@ -204,7 +205,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>14. Ngày cấp: </strong>
+                                <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="id_card_date">
@@ -215,10 +216,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>15. Nơi cấp: </strong>
+                                <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
                                 <select class="select-box dotted-line-input" required required name="id_card_place">
@@ -233,7 +234,7 @@
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>16. Trình độ giáo dục phổ thông: </strong>
+                        <strong>{{ $sn++ }}. Trình độ giáo dục phổ thông: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="universal_level">
@@ -245,7 +246,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>17. Bằng Cử nhân luật số: </strong>
+                                <strong>{{ $sn++ }}. Bằng Cử nhân luật số: </strong>
                             </div>
                             <div class="col">
                                 <input type="hidden" name="degrees[1][degree_type_id]" value="1">
@@ -254,10 +255,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>18. Loại hình đào tạo: </strong>
+                                <strong>{{ $sn++ }}. Loại hình đào tạo: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="educated_method">
@@ -268,10 +269,10 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>19. Nơi cấp: </strong>
+                                <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="degrees[1][degree_place]">
@@ -282,7 +283,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>20. Ngày cấp: </strong>
+                                <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input datepicker" required 
@@ -298,7 +299,7 @@
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>21. Trình độ chuyên môn cao nhất được đào tạo: </strong>
+                        <strong>{{ $sn++ }}. Trình độ chuyên môn cao nhất được đào tạo: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input" required name="educated_expertise">
@@ -307,10 +308,10 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>22. Ngành học: </strong>
+                                <strong>{{ $sn++ }}. Ngành học: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="educated_subject">
@@ -321,7 +322,7 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>23. Nơi đào tạo: </strong>
+                                <strong>{{ $sn++ }}. Nơi đào tạo: </strong>
                             </div>
                             <div class="col">
                                 <input type="text" class="dotted-line-input" required name="educated_place">
@@ -333,20 +334,20 @@
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>24. Trình độ lý luận chính trị: </strong>
+                        <strong>{{ $sn++ }}. Trình độ lý luận chính trị: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" required name="political_level">
+                        <input type="text" class="dotted-line-input" name="political_level">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>25. Ngày vào Đoàn TNCS Hồ Chí Minh: </strong>
+                        <strong>{{ $sn++ }}. Ngày vào Đoàn TNCS Hồ Chí Minh: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="union_joining_date">
+                        <input type="text" class="dotted-line-input datepicker" placeholder="DD/MM/YYYY" name="union_joining_date">
                         <span class="error-message text-danger"></span>
                         <span class="badge position-absolute calendar-icon">
                             <i class="icon-calendar2"></i>
@@ -355,14 +356,13 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>26. Ngày vào Đảng (dự bị): </strong>
+                                <strong>{{ $sn++ }}. Ngày vào Đảng (dự bị): </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required 
-                                placeholder="DD/MM/YYYY" name="vcp_temperary_date">
+                                <input type="text" class="dotted-line-input datepicker" placeholder="DD/MM/YYYY" name="vcp_temperary_date">
                                 <span class="error-message text-danger"></span>
                                 <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
@@ -373,11 +373,10 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-auto">
-                                <strong>27. Ngày chính thức: </strong>
+                                <strong>{{ $sn++ }}. Ngày chính thức: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input datepicker" required 
-                                placeholder="DD/MM/YYYY" name="vcp_offical_date">
+                                <input type="text" class="dotted-line-input datepicker" placeholder="DD/MM/YYYY" name="vcp_offical_date">
                                 <span class="error-message text-danger"></span>
                                 <span class="badge position-absolute calendar-icon">
                                     <i class="icon-calendar2"></i>
@@ -389,7 +388,7 @@
 
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>28. Chứng chỉ hành nghề luật sư số: </strong>
+                        <strong>{{ $sn++ }}. Chứng chỉ hành nghề luật sư số: </strong>
                     </div>
                     <div class="col-auto">
                         <input type="text" class="dotted-line-input" required name="law_certificate_number" style="width:10rem">
@@ -409,7 +408,7 @@
 
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>29. HOÀN CẢNH GIA ĐÌNH</strong> <br>
+                        <strong>{{ $sn++ }}. HOÀN CẢNH GIA ĐÌNH</strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ họ tên, năm sinh, nghề nghiệp, nơi công tác của bố mẹ đẻ, anh chị em ruột, vợ hoặc chồng, con)
                         </strong>
@@ -444,7 +443,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>30. QUÁ TRÌNH HOẠT ĐỘNG CỦA BẢN THÂN</strong> <br>
+                        <strong>{{ $sn++ }}. QUÁ TRÌNH HOẠT ĐỘNG CỦA BẢN THÂN</strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ thời gian, làm gì, ở đâu từ khi tốt nghiệp phổ thông trung học đến nay, chức danh, 
                             chức vụ đảm nhiệm, thời gian đào tạo nghề luật sư và thời gian tập sự hành nghề luật sư (nếu có))
@@ -479,7 +478,7 @@
     
                 <div class="row mb-2">
                     <div class="col-12">
-                        <strong>31. Khen thưởng - Kỷ luật: </strong> <br>
+                        <strong>{{ $sn++ }}. Khen thưởng - Kỷ luật: </strong> <br>
                         <strong class="text-muted">
                             (Ghi rõ hình thức khen thưởng, kỷ luật từ khi tốt nghiệp phổ thông trung học đến nay; 
                             trường hợp kỷ luật thì ghi rõ lý do kỷ luật và kèm theo quyết định kỷ luật; trường hợp 
@@ -492,10 +491,10 @@
                     </div>
                 </div>
 
-                @if ($form_type == 2)
+                @if ($option == 'luat-su-chuyen-tu-doan-khac-ve')
                 <div class="row mb-2">
                     <div class="col-auto">
-                        <strong>32. Ngày gia nhập lần đầu tiên: </strong>
+                        <strong>{{ $sn++ }}. Ngày gia nhập lần đầu tiên: </strong>
                     </div>
                     <div class="col">
                         <input type="text" class="dotted-line-input datepicker" required placeholder="DD/MM/YYYY" name="first_time_join">
@@ -552,11 +551,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php($attachments = [
-                                    'Bản sao chứng chỉ hành nghề luật sư',
-                                    'Phiếu lý lịch tư pháp (Trường hợp chứng chỉ hành nghề luật sư quá 6 tháng) (không bắt buộc)',
-                                    'Bản sao Quyết định nghỉ hưu hoặc Giấy xác nhận không phải là công chức (không bắt buộc)',
-                                ])
                                 @foreach ($attachments as $attachment)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
@@ -604,33 +598,10 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="validateAll('memberForm')">
+                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="openSecondaryForm('memberRegisterForm')">
                     Đăng ký
                 </button>
             </div>
         </div>
     </form>
 </div>
-
-{{-- <div class="modal fade" id="cardIssuedModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <strong>Thông báo</strong>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body font-weight-bold">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm">
-
-                </button>
-            </div>
-        </div>
-    </div>
-</div> --}}

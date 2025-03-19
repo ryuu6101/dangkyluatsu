@@ -12,11 +12,19 @@
                         </select>
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm" wire:model.live="params.name">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm" wire:model.live="params.fullname">
                     </div>
                     <div class="col-auto">
                         <input type="text" class="form-control daterange-picker cursor-pointer" 
                         readonly placeholder="Thời gian nộp hồ sơ" style="min-width: 15rem">
+                    </div>
+                    <div class="col-auto">
+                        <select class="custom-select w-auto" wire:model.live="params.document_status_id">
+                            <option value="">Tất cả trạng thái</option>
+                            @foreach ($document_statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
@@ -102,11 +110,11 @@
             @this.set('params.created_at_start', null);
             @this.set('params.created_at_end', null);
         }).on('apply.daterangepicker', function(ev, picker) {
-            var start_date = picker.startDate.format('DD/MM/YYYY');
-            var end_date = picker.endDate.format('DD/MM/YYYY');
-            $(this).val(start_date+' - '+end_date);
-            @this.set('params.created_at_start', start_date);
-            @this.set('params.created_at_end', end_date);
+            var start_date = picker.startDate;
+            var end_date = picker.endDate;
+            $(this).val(start_date.format('DD/MM/YYYY')+' - '+end_date.format('DD/MM/YYYY'));
+            @this.set('params.created_at_start', start_date.format('YYYY-MM-DD'));
+            @this.set('params.created_at_end', end_date.format('YYYY-MM-DD'));
         });
     })
 </script>

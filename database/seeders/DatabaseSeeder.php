@@ -21,10 +21,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminsTableSeeder::class,
+            RolesTableSeeder::class,
             DocumentTypesTableSeeder::class,
             DocumentStatusesTableSeeder::class,
             DegreeTypesTableSeeder::class,
             ProgressTypesTableSeeder::class,
+            OrganizationsTableSeeder::class,
+            SiteConfigsTableSeeder::class,
         ]);
     }
 }

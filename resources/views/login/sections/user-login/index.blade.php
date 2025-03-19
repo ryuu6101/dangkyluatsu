@@ -8,6 +8,10 @@
             <form action="{{ route('user-login.auth') }}" method="post">
                 @method('post')
                 @csrf
+
+                @session('member_register')
+                <input type="hidden" name="member_register" value="{{ $value }}">
+                @endsession
                 <div class="d-flex align-item-center justify-content-center">
                     <div class="card text-center p-5" style="background-color: rgba(0, 0, 0, 0.1); width:35rem">
                         <div class="row mb-2">
