@@ -63,6 +63,22 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('admin.organizations.index') }}" 
+                    class="nav-link {{ $route == 'admin.organizations.index' ? 'active' : '' }}">
+                        <i class="icon-briefcase"></i>
+                        <span>Tổ chức hành nghề</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.bank-accounts.index') }}" 
+                    class="nav-link {{ $route == 'admin.bank-accounts.index' ? 'active' : '' }}">
+                        <i class="icon-qrcode"></i>
+                        <span>Tài khoản ngân hàng</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('admin.mail-config.index') }}" 
                     class="nav-link {{ $route == 'admin.mail-config.index' ? 'active' : '' }}">
                         <i class="icon-mention"></i>

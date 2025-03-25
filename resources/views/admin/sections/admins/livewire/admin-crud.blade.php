@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="modal-content" wire:loading.class="d-none" wire:target="modalSetup">
+            <div class="modal-content" wire:loading.remove wire:target="modalSetup">
                 <div class="modal-header">
                     <h5 class="modal-title">
                         @if ($action == 'create')

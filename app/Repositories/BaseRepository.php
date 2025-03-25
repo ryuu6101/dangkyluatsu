@@ -71,7 +71,7 @@ abstract class BaseRepository implements RepositoryInterface
     public function filter($params = [], $paginate = 0, $sort = 'asc') {
         $class_name = class_basename($this->model);
         $filter_class = "App\\Filters\\{$class_name}Filter";
-        if (!class_exists($filter_class)) return false;
+        // if (!class_exists($filter_class)) return false;
         
         $filter = new $filter_class();
         $list = $this->model->filter($filter, $params)->orderBy('created_at', $sort);

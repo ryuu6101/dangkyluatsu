@@ -11,6 +11,7 @@
 	<link href="{{ asset('global_assets/css/icons/icomoon/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('global_assets/css/icons/material/styles.min.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('assets/css/all.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('print_js/styles/print.min.css') }}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
@@ -24,6 +25,7 @@
 	<script src="{{ asset('global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/pickers/daterangepicker.js') }}"></script>
 	<script src="{{ asset('global_assets/js/plugins/notifications/noty.min.js') }}"></script>
+	<script src="{{ asset('print_js/js/print.min.js') }}"></script>
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 	<!-- /theme JS files -->

@@ -16,6 +16,7 @@ class OrganizationsTableSeeder extends Seeder
         $data = [
             [
                 'name' => 'Đoàn luật sư TP. Đà Nẵng',
+                'address' => 'Đà Nẵng',
                 'phone' => '0123456789',
                 'mobile' => '199999555',
                 'fax' => '',

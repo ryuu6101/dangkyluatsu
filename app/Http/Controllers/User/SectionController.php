@@ -48,19 +48,27 @@ class SectionController extends Controller
         return view('user.sections.dashboard.index');
     }
 
-    public function my_progress($slug) {
+    public function progress_detail($slug) {
         $progress_type_id = $this->progressTypeRepos->getBySlug($slug)->id;
         $progress = auth()->user()->progresses->where('progress_type_id', $progress_type_id)->first();
-        $progress_view = [
+        $views = [
             1 => 'intern-register',
             2 => 'member-register',
             3 => 'card-issued',
-            4 => 'card-reissued',
-        ][$progress_type_id];
+            4 => 'card-exchange',
+        ];
 
         return view('user.sections.my-progress.index')->with([
             'progress' => $progress,
-            'progress_view' => $progress_view,
+            'views' => $views,
         ]);
+    }
+
+    public function my_profile() {
+        return view('user.sections.my-profile.index');
+    }
+
+    public function update_credentials() {
+        return view('user.sections.update-credentials.index');
     }
 }

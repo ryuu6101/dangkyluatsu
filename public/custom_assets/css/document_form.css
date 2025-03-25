@@ -17,7 +17,8 @@
         height: 26px;
     }
 
-    .select-box:required:invalid {
+    .select-box:required:invalid, 
+    .select-box:has(> option[value=""]:checked) {
         color: gray;
     }
 

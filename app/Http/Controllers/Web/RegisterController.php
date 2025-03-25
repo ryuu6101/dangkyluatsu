@@ -8,6 +8,7 @@ use App\Repositories\Degrees\DegreeRepositoryInterface;
 use App\Repositories\Documents\DocumentRepositoryInterface;
 use App\Repositories\Attachments\AttachmentRepositoryInterface;
 use App\Repositories\FamilyMembers\FamilyMemberRepositoryInterface;
+use App\Repositories\Organizations\OrganizationRepositoryInterface;
 use App\Repositories\WorkingRecords\WorkingRecordRepositoryInterface;
 use App\Repositories\AttachmentFiles\AttachmentFileRepositoryInterface;
 
@@ -19,6 +20,7 @@ class RegisterController extends Controller
     protected $workingRecordRepos;
     protected $attachmentRepos;
     protected $attachmentFileRepos;
+    protected $organizationRepos;
 
     public $attachments_list = [
         1 => [
@@ -43,6 +45,7 @@ class RegisterController extends Controller
         WorkingRecordRepositoryInterface $workingRecordRepos,
         AttachmentRepositoryInterface $attachmentRepos,
         AttachmentFileRepositoryInterface $attachmentFileRepos,
+        OrganizationRepositoryInterface $organizationRepos,
     ) {
         $this->degreeRepos = $degreeRepos;
         $this->documentRepos = $documentRepos;
@@ -50,6 +53,7 @@ class RegisterController extends Controller
         $this->workingRecordRepos = $workingRecordRepos;
         $this->attachmentRepos = $attachmentRepos;
         $this->attachmentFileRepos = $attachmentFileRepos;
+        $this->organizationRepos = $organizationRepos;
     }
 
     public function intern_register() {
@@ -73,7 +77,12 @@ class RegisterController extends Controller
             'option' => $option,
             'secondary_form' => $secondary_form,
             'attachments' => $this->attachments_list[2],
+            'organizations' => $this->organizationRepos->getAll(),
         ]);
+    }
+
+    public function get_organization(Request $request) {
+        return $this->organizationRepos->find($request->input('id'));
     }
 
     public function intern_register_post(Request $request) {

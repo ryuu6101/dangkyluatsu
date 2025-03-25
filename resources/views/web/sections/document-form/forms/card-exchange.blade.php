@@ -208,7 +208,10 @@
                     <div class="col">
                         <select class="dotted-line-input select-box" 
                         name="secondary_form[organization_id]" form="memberRegisterForm">
-                            <option value="">Chọn</option>
+                            <option value="" hidden>Chọn</option>
+                            @foreach ($organizations as $organization)
+                            <option value="{{ $organization->id }}" class="text-dark">{{ $organization->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -217,7 +220,7 @@
                     <div class="col-auto">
                         <strong>{{ $sn++ }}. Địa chỉ trụ sở chính: </strong>
                     </div>
-                    <div class="col"></div>
+                    <div class="col organ-address"></div>
                 </div>
 
                 <div class="row mb-2">
@@ -226,7 +229,7 @@
                             <div class="col-auto">
                                 <strong>{{ $sn++ }}. Địện thoại trụ sở chính: </strong>
                             </div>
-                            <div class="col"></div>
+                            <div class="col organ-phone"></div>
                         </div>
                     </div>
                     <div class="col-6">
@@ -234,7 +237,7 @@
                             <div class="col-auto">
                                 <strong>{{ $sn++ }}. Fax: </strong>
                             </div>
-                            <div class="col"></div>
+                            <div class="col organ-fax"></div>
                         </div>
                     </div>
                 </div>
@@ -245,7 +248,7 @@
                             <div class="col-auto">
                                 <strong>{{ $sn++ }}. Địện thoại di động: </strong>
                             </div>
-                            <div class="col"></div>
+                            <div class="col organ-mobile"></div>
                         </div>
                     </div>
                     <div class="col-6">
@@ -253,7 +256,7 @@
                             <div class="col-auto">
                                 <strong>{{ $sn++ }}. Email: </strong>
                             </div>
-                            <div class="col"></div>
+                            <div class="col organ-email"></div>
                         </div>
                     </div>
                 </div>
@@ -262,8 +265,8 @@
                     <div class="col-auto">
                         <strong>{{ $sn++ }}. Chứng chỉ hành nghề luật sư số: </strong>
                     </div>
-                    <div class="col-auto">
-                        <input type="text" class="dotted-line-input" style="width:10rem"
+                    <div class="col">
+                        <input type="text" class="dotted-line-input" 
                         name="secondary_form[law_certificate_number]" readonly form="memberRegisterForm">
                         <span class="error-message text-danger"></span>
                     </div>
@@ -281,7 +284,7 @@
                     <div class="col-auto">
                         <strong>{{ $sn++ }}. Thẻ luật sư số: </strong>
                     </div>
-                    <div class="col-auto" style="width:10rem">
+                    <div class="col">
                         <input type="text" class="dotted-line-input" 
                         name="secondary_form[lawyer_card_number]" form="memberRegisterForm">
                         <span class="error-message text-danger"></span>

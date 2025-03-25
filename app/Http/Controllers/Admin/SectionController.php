@@ -57,6 +57,14 @@ class SectionController extends Controller
         return view('admin.sections.admins.index');
     }
 
+    public function organizations() {
+        return view('admin.sections.organizations.index');
+    }
+
+    public function bank_accounts() {
+        return view('admin.sections.bank-accounts.index');
+    }
+
     public function mail_config() {
         return view('admin.sections.mail-config.index');
     }

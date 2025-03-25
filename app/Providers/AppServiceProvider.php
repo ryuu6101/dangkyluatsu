@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $models = ['Admin', 'Role', 'User', 'Document', 'DocumentStatus', 'Degree', 'FamilyMember', 'WorkingRecord', 
-                    'Attachment', 'AttachmentFile', 'Progress', 'ProgressType'];
+                    'Attachment', 'AttachmentFile', 'Progress', 'ProgressType', 'Organization', 'BankAccount'];
 
         foreach ($models as $key => $value) {
             $plural = Str::plural($value);

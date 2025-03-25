@@ -78,7 +78,7 @@ class AdminCrud extends Component
         $this->resetErrorBag();
         $params = $this->validate();
         $params['password'] = bcrypt($this->password);
-        $user = $this->adminRepos->create($params);
+        $admin = $this->adminRepos->create($params);
         $this->postCrud('Đã thêm tài khoản');
     }
 
@@ -86,19 +86,19 @@ class AdminCrud extends Component
         $this->resetErrorBag();
         $params = $this->validate();
         unset($params['password']);
-        $this->user->update($params);
+        $this->admin->update($params);
         $this->postCrud('Đã cập nhật tài khoản');
     }
 
     public function delete() {
-        $this->user->delete();
+        $this->admin->delete();
         $this->postCrud('Đã xóa tài khoản');
     }
 
     public function postCrud($message = '') {
-        $this->reset('action', 'user');
+        $this->reset('action', 'admin');
         $this->dispatch('refresh')->to(AdminList::class);
-        $this->dispatch('close-crud-user-modal');
+        $this->dispatch('close-crud-admin-modal');
         $this->dispatch('show-message',
             type: 'success', 
             message: $message,

@@ -16,4 +16,8 @@ class Progress extends Model
     public function type() {
         return $this->belongsTo(ProgressType::class, 'progress_type_id');
     }
+
+    public function document() {
+        return $this->belongsTo(Document::class, 'document_id');
+    }
 }

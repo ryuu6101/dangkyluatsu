@@ -392,7 +392,7 @@
                 @foreach ($document->working_records as $working_record)
                 <tr>
                     <td class="text-center">{{ $loop->iteration }}</td>
-                    <td class="text-center">{{ $working_record->from_date }} - {{ $working_record->to_date }}</td>
+                    <td class="text-center">{{ $working_record->workspan }}</td>
                     <td class="text-center">{{ $working_record->job }}</td>
                     <td class="text-center">{{ $working_record->workplace }}</td>
                     <td class="text-center">{{ $working_record->position }}</td>

@@ -122,6 +122,24 @@
                 $('button.submit-btn-secondary').prop("disabled", false);
             }
         });
+
+        $('select[name="secondary_form[organization_id]"]').on('change', function() {
+            $.ajax({
+                url: "{{ route('get-organization') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: $(this).val(),
+                },
+                success: function(data) {
+                    $('.organ-address').text(data.address ?? '');
+                    $('.organ-phone').text(data.phone ?? '');
+                    $('.organ-mobile').text(data.mobile ?? '');
+                    $('.organ-fax').text(data.fax ?? '');
+                    $('.organ-email').text(data.email ?? '');
+                },
+            });
+        });
     });
 </script>
 @endpush

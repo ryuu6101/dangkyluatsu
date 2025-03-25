@@ -1,0 +1,55 @@
+@media print {
+    :root {
+        --fs: 14pt;
+        --mt: 20mm;
+        --mr: 15mm;
+        --mb: 20mm;
+        --ml: 30mm;
+    }
+
+    @page {
+        size: A4;
+        margin: var(--mt) var(--mr) var(--mb) var(--ml);
+    }
+    
+    .form-container {
+        width: calc(100% - var(--mr) - var(--ml));
+        font-family: 'Times New Roman', Times, serif;
+        font-size: var(--fs);
+        page-break-after: always;
+
+        .portrait-pic {
+            width:4cm;
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-title {
+            font-size: calc(var(--fs) + 2pt);
+        }
+
+        .text-indent {
+            text-indent: 3rem;
+        }
+
+        .field {
+            display: inline-block;
+        }
+
+        .field:empty::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: calc(var(--fs) + 2pt);
+            border-bottom: 1px dashed black;
+        }
+
+        table {
+            th, td {
+                padding: 0;
+            }
+        }
+    }
+}

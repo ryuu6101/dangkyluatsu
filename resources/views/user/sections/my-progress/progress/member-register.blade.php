@@ -81,7 +81,7 @@
                     <div class="step-content">
                         <span>Trường hợp 1: Với luật sư mới gia nhập</span>
                         @if ($progress->current_step > $sn)
-                        <a href="#!" class="badge badge-white border rounded-pill ml-2">In file</a> <br>
+                        <a href="#!" class="badge badge-white border rounded-pill ml-2 print-btn">In file</a> <br>
                         @else
                         <a href="#!" class="badge badge-white border rounded-pill ml-2" data-toggle="modal" data-target="#documentFormModal">
                             Lập giấy tại đây
@@ -132,7 +132,10 @@
                         @if ($progress->current_step > $sn)
                         <span class="badge badge-primary rounded-pill ml-2">Đã nộp</span>
                         @elseif ($progress->current_step == $sn)
-                        <a href="#!" class="badge badge-white border rounded-pill ml-2">Nộp tiền</a>
+                        <a href="#!" class="badge badge-white border rounded-pill ml-2" 
+                        data-toggle="modal" data-target="#selectBankAccountModal">
+                            Nộp tiền
+                        </a>
                         @else
                         <span class="badge badge-light text-muted border rounded-pill ml-2">Chưa nộp</span>
                         @endif

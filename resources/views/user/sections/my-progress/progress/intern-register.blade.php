@@ -129,7 +129,10 @@
                         @if ($progress->current_step > $sn)
                         <span class="badge badge-success rounded-pill ml-2">Đã nộp</span>
                         @elseif ($progress->current_step == $sn)
-                        <a href="#!" class="badge badge-white border rounded-pill ml-2">Nộp tiền</a>
+                        <a href="#!" class="badge badge-white border rounded-pill ml-2" 
+                        data-toggle="modal" data-target="#selectBankAccountModal">
+                            Nộp tiền
+                        </a>
                         @endif
                         @if ($progress->current_step <= $sn)
                         <span class="badge badge-light text-muted rounded-pill border ml-2">Chưa nộp</span>
