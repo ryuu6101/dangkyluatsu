@@ -14,9 +14,10 @@
                 novalidate method="post" id="memberRegisterForm" enctype="multipart/form-data">
                     @method("post")
                     @csrf
+                    @php($user = auth()->guard('web')->user())
                     <input type="hidden" name="return_back" value="1">
                     <input type="hidden" name="document_type_id" value="2">
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <div class="row">
                         <div class="col">
                             <div class="text-center">
@@ -28,7 +29,6 @@
                         </div>
                     </div>
         
-                    @php($user = auth()->guard('web')->user())
                     <div class="row mb-3">
                         <div class="col-2">
                             <input type="hidden" name="portrait_pic" value="{{ $user->profile_pic }}">

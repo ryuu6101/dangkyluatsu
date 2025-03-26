@@ -132,10 +132,11 @@
                                 <strong>{{ $sn++ }}. Nơi sinh: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required name="birthplace">
+                                <input type="text" class="dotted-line-input" required name="birthplace">
+                                {{-- <select class="select-box dotted-line-input" required name="birthplace">
                                     <option value="" hidden>Chọn</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
-                                </select>
+                                </select> --}}
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
@@ -238,10 +239,11 @@
                                 <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <select class="select-box dotted-line-input" required required name="id_card_place">
+                                <input type="text" class="dotted-line-input" required name="id_card_place">
+                                {{-- <select class="select-box dotted-line-input" required required name="id_card_place">
                                     <option value="" hidden>Chọn tỉnh/ thành phố</option>
                                     <option value="Đà Nẵng" class="text-dark">Đà Nẵng</option>
-                                </select>
+                                </select> --}}
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
