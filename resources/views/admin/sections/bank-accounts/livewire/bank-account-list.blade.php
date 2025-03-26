@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col">
+<div class="row justify-content-center">
+    <div class="col-6">
         <div class="card" style="background-color: rgba(255,255,255,0.7)">
             <div class="card-body">
                 <div class="row">

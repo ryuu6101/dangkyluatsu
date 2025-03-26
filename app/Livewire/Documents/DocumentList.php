@@ -28,7 +28,7 @@ class DocumentList extends Component
 
     public function mount() {
         $this->document_statuses = $this->documentStatusRepos->getAll();
-        $this->params['document_status_id'] = 1;
+        // $this->params['document_status_id'] = 1;
     }
 
     public function render()

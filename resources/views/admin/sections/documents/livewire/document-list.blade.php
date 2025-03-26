@@ -36,7 +36,7 @@
                                     <tr>
                                         <th scope="col" class="text-center" style="width: 5%">STT</th>
                                         <th scope="col" class="text-center" style="width: auto">Họ & Tên</th>
-                                        <th scope="col" class="text-center" style="width: auto">Giấy</th>
+                                        <th scope="col" class="text-center" style="width: auto">Đơn</th>
                                         <th scope="col" class="text-center" style="width: auto">Thời gian nộp</th>
                                         <th scope="col" class="text-center" style="width: auto">Trạng thái</th>
                                         <th scope="col" class="text-center" style="width: 10%">Xem hồ sơ</th>
