@@ -209,7 +209,13 @@ function validateAll(formId) {
         };
     });
 
-    if (has_error) return false;
+    if (has_error) {
+        new Noty({
+            text: 'Vui lòng điền đầy đủ thông tin.',
+            type: 'warning',
+        }).show();
+        return false;
+    }
 
     if ($('tbody.family-members-container').length && !$('tr.family-member-row').length) {
         new Noty({
