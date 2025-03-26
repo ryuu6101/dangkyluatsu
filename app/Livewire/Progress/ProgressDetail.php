@@ -45,7 +45,7 @@ class ProgressDetail extends Component
         $this->progress->update(['current_step' => $step]);
         if (!($notification = $this->notification[$this->progress->progress_type_id][$step] ?? false)) return;
         $this->progress->user->notifications()->create([
-            'title' => $this->progress->progress_type_id ? 'Đơn đăng ký tập sự' : 'Đơn đăng ký thành viên',
+            'title' => $this->progress->progress_type_id == 1 ? 'Đơn đăng ký tập sự' : 'Đơn đăng ký thành viên',
             'content' => $notification,
             'link' => route('my-progress.detail.index', ['slug' => $this->progress->type->slug]),
         ]);

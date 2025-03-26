@@ -73,7 +73,8 @@
                     @if ($bank_account)
                     <div class="row mb-2">
                         <div class="col text-center">
-                            <img src="{{ asset($bank_account->qr_code) }}" alt="" class="img-fluid rounded" style="width:15rem">
+                            <img src="{{ asset($bank_account->qr_code) }}" alt="" class="img-fluid rounded" style="width:15rem"> <br>
+                            <span class="font-italic">(Sau khi chuyển khoản vui lòng đợi thông báo từ phía nhân sự)</span>
                         </div>
                     </div>
                     @endif
