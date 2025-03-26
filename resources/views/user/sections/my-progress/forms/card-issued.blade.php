@@ -1,4 +1,4 @@
-<div class="modal fade" id="secondaryForm" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="secondaryForm" tabindex="-1" role="dialog" aria-hidden="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body document-form" style="padding: 1.25rem 5rem">
@@ -14,15 +14,13 @@
                     </div>
                 </div>
     
+                @php($user = auth()->guard('web')->user())
                 <div class="row mb-3">
                     <div class="col-2">
-                        <label class="border border-dark d-flex align-items-center justify-content-center" 
-                        style="aspect-ratio: 3/4; width:8rem" type="button" for="portraitPicture">
-                            <h3 class="text-uppercase text-center">
-                                <strong>Ảnh 3x4</strong> <br>
-                                <i class="icon-image2 icon-2x text-muted"></i>
-                            </h3>
-                        </label>
+                        <input type="hidden" name="portrait_pic" value="{{ $user->profile_pic }}">
+                        <div class="border border-dark" style="aspect-ratio: 3/4; width:8rem">
+                            <img src="{{ asset($user->profile_pic) }}" alt="" class="h-100 w-100">
+                        </div>
                     </div>
                     <div class="col-8">
                         <div class="text-center">
@@ -45,8 +43,8 @@
                         <strong>{{ $sn++ }}. Tên tôi là (ghi bằng chữ in hoa): </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input text-uppercase" 
-                        name="secondary_form[fullname]" readonly form="memberRegisterForm">
+                        <input type="text" class="dotted-line-input text-uppercase" value="{{ $user->fullname }}"
+                        name="secondary_form[fullname]" readonly  form="memberRegisterForm">
                         <span class="error-message text-danger"></span>
                     </div>
                 </div>
@@ -58,7 +56,7 @@
                                 <strong>{{ $sn++ }}. Giới tính: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->gender }}"
                                 name="secondary_form[gender]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -70,7 +68,7 @@
                                 <strong>{{ $sn++ }}. Ngày sinh: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->birthday }}"
                                 name="secondary_form[birthday]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -82,7 +80,7 @@
                                 <strong>{{ $sn++ }}. Nơi sinh: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->birthplace }}"
                                 name="secondary_form[birthplace]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -98,7 +96,7 @@
                                 <strong>{{ $sn++ }}. CCCD: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->id_card_number }}"
                                 name="secondary_form[id_card_number]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -110,7 +108,7 @@
                                 <strong>{{ $sn++ }}. Ngày cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->id_card_date }}"
                                 name="secondary_form[id_card_date]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -122,7 +120,7 @@
                                 <strong>{{ $sn++ }}. Nơi cấp: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->id_card_place }}"
                                 name="secondary_form[id_card_place]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -137,7 +135,7 @@
                                 <strong>{{ $sn++ }}. Dân tộc: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->ethnic }}"
                                 name="secondary_form[ethnic]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -149,7 +147,7 @@
                                 <strong>{{ $sn++ }}. Tôn giáo: </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input" value="{{ $user->religious }}"
                                 name="secondary_form[religious]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -164,7 +162,7 @@
                                 <strong>{{ $sn++ }}. Ngày vào Đảng (dự bị): </strong>
                             </div>
                             <div class="col">
-                                <input type="text" class="dotted-line-input" 
+                                <input type="text" class="dotted-line-input"
                                 name="secondary_form[vcp_temperary_date]" readonly form="memberRegisterForm">
                                 <span class="error-message text-danger"></span>
                             </div>
@@ -211,7 +209,7 @@
                         <strong>{{ $sn++ }}. Hộ khẩu thường trú: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" 
+                        <input type="text" class="dotted-line-input" value="{{ $user->residence_place }}"
                         name="secondary_form[residence_place]" readonly form="memberRegisterForm">
                         <span class="error-message text-danger"></span>
                     </div>
@@ -222,7 +220,7 @@
                         <strong>{{ $sn++ }}. Địa chỉ liên lạc: </strong>
                     </div>
                     <div class="col">
-                        <input type="text" class="dotted-line-input" 
+                        <input type="text" class="dotted-line-input" value="{{ $user->current_place }}"
                         name="secondary_form[current_place]" readonly form="memberRegisterForm">
                         <span class="error-message text-danger"></span>
                     </div>
@@ -381,6 +379,9 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-center border-top pt-2">
+                <button type="button" class="btn btn-outline-warning btn-sm mr-2" data-dismiss="modal">
+                    Xem lại
+                </button>
                 <button type="button" class="btn btn-warning btn-sm submit-btn-secondary" disabled onclick="submit('memberRegisterForm')">
                     Đăng ký
                 </button>
@@ -395,6 +396,7 @@
     function openSecondaryForm(formId) {
         if (!validateAll(formId)) return;
 
+        $('#documentFormModal').modal('hide');
         $('#secondaryForm').modal('show');
 
         if (!notified) {
@@ -405,5 +407,11 @@
             }).show();
         }
     }
+
+    $(document).ready(function() {
+        $('#secondaryForm').on('hide.bs.modal', function() {
+            $('#documentFormModal').modal('show');
+        });
+    });
 </script>
 @endpush

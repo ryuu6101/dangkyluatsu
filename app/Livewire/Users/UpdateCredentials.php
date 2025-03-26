@@ -51,6 +51,6 @@ class UpdateCredentials extends Component
 
     public function render()
     {
-        return view('user.sections.update-credentials.livewire.update-credentials');
+        return view('user.sections.credentials.livewire.update-credentials');
     }
 }

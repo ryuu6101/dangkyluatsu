@@ -58,7 +58,8 @@
         <!-- Main content -->
 		<div class="content-wrapper">
 
-			@include('user.layouts.header')
+			{{-- @include('user.layouts.header') --}}
+			@include('user.layouts.navbar')
 
 			<!-- Inner content -->
 			<div class="content-inner">
@@ -100,6 +101,12 @@
 					text: event.message,
 					type: event.type,
 				}).show();
+			});
+
+			$( 'div.modal.fade' ).on( 'hidden.bs.modal' , function() {
+				if ( $( '.modal:visible' ).length ) {
+					$( 'body' ).addClass( 'modal-open' );
+				}
 			});
 		});
 	</script>

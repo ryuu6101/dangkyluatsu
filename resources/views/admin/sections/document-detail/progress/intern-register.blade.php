@@ -5,11 +5,7 @@
             <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                 <div class="step-header">
                     <div class="node">
-                        @if ($progress->current_step > $sn)
                         <i class="icon-check2 icon-2x"></i>
-                        @else
-                        <span>1</span>
-                        @endif
                     </div>
                     <span>Đăng ký tập sự</span>
                 </div>
@@ -17,11 +13,7 @@
             <div class="step {{ $progress->current_step > $sn ? 'complete' : ''}}">
                 <div class="step-header">
                     <div class="node">
-                        @if ($progress->current_step > $sn)
                         <i class="icon-check2 icon-2x"></i>
-                        @else
-                        <span>2</span>
-                        @endif
                     </div>
                     <span>Hồ sơ được duyệt</span>
                     @if ($progress->current_step > $sn)
@@ -38,11 +30,7 @@
             <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                 <div class="step-header">
                     <div class="node">
-                        @if ($progress->current_step > $sn)
                         <i class="icon-check2 icon-2x"></i>
-                        @else
-                        <span>3</span>
-                        @endif
                     </div>
                     <span>Đã nộp tiền</span>
                     @if ($progress->current_step > $sn)
@@ -59,11 +47,7 @@
             <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                 <div class="step-header">
                     <div class="node">
-                        @if ($progress->current_step > $sn)
                         <i class="icon-check2 icon-2x"></i>
-                        @else
-                        <span>4</span>
-                        @endif
                     </div>
                     <span>Có quyết định tập sự</span>
                     @if ($progress->current_step > $sn)
@@ -92,11 +76,7 @@
             <div class="step {{ $progress->current_step > ++$sn ? 'complete' : ''}}">
                 <div class="step-header">
                     <div class="node">
-                        @if ($progress->current_step > $sn)
                         <i class="icon-check2 icon-2x"></i>
-                        @else
-                        <span>5</span>
-                        @endif
                     </div>
                     <span>Bắt đầu tập sự</span>
                     @if ($progress->current_step == $sn)

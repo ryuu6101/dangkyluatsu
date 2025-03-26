@@ -103,13 +103,20 @@ class DocumentApprove extends Component
                 'current_step' => 2,
             ]);
         } else {
-            $user->progresses()->create([
+            $progress = $user->progresses()->create([
                 'document_id' => $this->document->id,
                 'progress_type_id' => $progress_type_id,
                 'current_step' => 2,
                 'final_step' => $final_step,
             ]);
         }
+        
+        $user->notifications()->create([
+            'title' => $progress_type_id == 1 ? 'Đơn đăng ký tập sự' : 'Đơn đăng ký thành viên',
+            'content' => 'Tài khoản "'.$user->email.'" đã cập nhật hồ sơ thành "Đạt". Đề nghị nộp phí '.
+                        ($progress_type_id == 1 ? 'tập sự' : 'gia nhập đoàn'),
+            'link' => route('my-progress.detail.index', ['slug' => $progress->type->slug]),
+        ]);
     }
 
     public function submit() {

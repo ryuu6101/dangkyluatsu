@@ -28,7 +28,7 @@
                         </div>
                     </div>
         
-                    @php($user = auth()->user())
+                    @php($user = auth()->guard('web')->user())
                     <div class="row mb-3">
                         <div class="col-2">
                             <input type="hidden" name="portrait_pic" value="{{ $user->profile_pic }}">
@@ -495,39 +495,28 @@
                                     <tr class="working-record-row">
                                         <td class="text-center sn-cell">{{ $loop->iteration }}</td>
                                         <td class="text-center">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" readonly 
-                                                    name="working_record[{{ $loop->iteration }}][from_date]" 
-                                                    value="{{ $working_record->from_date }}">
-                                                    <span class="error-message text-danger"></span>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="text" class="form-control form-control-sm" readonly 
-                                                    name="working_record[{{ $loop->iteration }}][to_date]" 
-                                                    value="{{ $working_record->to_date }}">
-                                                    <span class="error-message text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
                                             <input type="text" class="form-control form-control-sm" readonly 
-                                            name="working_record[{{ $loop->iteration }}][job]" value="{{ $working_record->job }}">
+                                            name="working_records[{{ $loop->iteration }}][workspan]" value="{{ $working_record->workspan }}">
                                             <span class="error-message text-danger"></span>
                                         </td>
                                         <td class="text-center">
                                             <input type="text" class="form-control form-control-sm" readonly 
-                                            name="working_record[{{ $loop->iteration }}][workplace]" value="{{ $working_record->workplace }}">
+                                            name="working_records[{{ $loop->iteration }}][job]" value="{{ $working_record->job }}">
                                             <span class="error-message text-danger"></span>
                                         </td>
                                         <td class="text-center">
                                             <input type="text" class="form-control form-control-sm" readonly 
-                                            name="working_record[{{ $loop->iteration }}][position]" value="{{ $working_record->position }}">
+                                            name="working_records[{{ $loop->iteration }}][workplace]" value="{{ $working_record->workplace }}">
                                             <span class="error-message text-danger"></span>
                                         </td>
                                         <td class="text-center">
                                             <input type="text" class="form-control form-control-sm" readonly 
-                                            name="working_record[{{ $loop->iteration }}][note]" value="{{ $working_record->note }}">
+                                            name="working_records[{{ $loop->iteration }}][position]" value="{{ $working_record->position }}">
+                                            <span class="error-message text-danger"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="text" class="form-control form-control-sm" readonly 
+                                            name="working_records[{{ $loop->iteration }}][note]" value="{{ $working_record->note }}">
                                             <span class="error-message text-danger"></span>
                                         </td>
                                         <td class="text-center"></td>
@@ -659,8 +648,8 @@
                 </form>
             </div>
 
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="submit('memberRegisterForm')">
+            <div class="modal-footer justify-content-center border-top pt-2">
+                <button type="button" class="btn btn-warning btn-sm submit-btn" disabled onclick="openSecondaryForm('memberRegisterForm')">
                     Đăng ký
                 </button>
             </div>
@@ -693,6 +682,22 @@
             }).on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('').trigger('input');
             });
+        }).on('focus', '.daterange-picker:not(.has-datepicker)', function() {
+            this.classList.add("has-datepicker");
+            $(this).daterangepicker({
+                parentEl: '#documentFormModal .modal-body',
+                showDropdowns: true,
+                autoUpdateInput: false,
+                autoApply: true,
+                buttonClasses: 'd-none',
+                maxDate: moment().format('MM/DD/YYYY'),
+            }).on('apply.daterangepicker', function(ev, picker) {
+                let start_date = picker.startDate.format('DD/MM/YYYY');
+                let end_date = picker.endDate.format('DD/MM/YYYY');
+                $(this).val(start_date + ' - ' + end_date).trigger('input');
+            }).on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('').trigger('input');
+            });
         });
 
         $('input.attachment-files').change(function(e) {
@@ -701,8 +706,18 @@
             $(`label[for="${input_id}"]`).children('span').text(file_count + ' file');
         });
 
-        $('input[type="text"],input[type="number"]').on('input', function() {validate(this)});
-        $('select').on('change', function() {validate(this)});
+        // $('input[type="text"],input[type="number"]').on('input', function() {validate(this)});
+        // $('select').on('change', function() {validate(this)});
+        $('input[type="text"],input[type="number"]').on('input', function() {
+            if (validate(this) && $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).length) {
+                $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).val(this.value);
+            }
+        });
+        $('select').on('change', function() {
+            if (validate(this) && $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).length) {
+                $(`input[name="secondary_form[${this.getAttribute('name')}]"]`).val(this.value);
+            }
+        });
 
         $('input#agreeTermAndCondition').on('change', function() {
             $('input#termAndConditionCheckbox').prop('checked', $('input#agreeTermAndCondition').is(":checked"));
@@ -727,8 +742,30 @@
             }
         });
 
-        $('#termAndCondition').on('hidden.bs.modal', function() {
-            $('body').addClass('modal-open');
+        $('input.agreement-checkbox-secondary').on('change', function() {
+            if ($('input.agreement-checkbox-secondary').not(':checked').length) {
+                $('button.submit-btn-secondary').prop("disabled", true);
+            } else {
+                $('button.submit-btn-secondary').prop("disabled", false);
+            }
+        });
+
+        $('select[name="secondary_form[organization_id]"]').on('change', function() {
+            $.ajax({
+                url: "{{ route('get-organization') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: $(this).val(),
+                },
+                success: function(data) {
+                    $('.organ-address').text(data.address ?? '');
+                    $('.organ-phone').text(data.phone ?? '');
+                    $('.organ-mobile').text(data.mobile ?? '');
+                    $('.organ-fax').text(data.fax ?? '');
+                    $('.organ-email').text(data.email ?? '');
+                },
+            });
         });
     });
 </script>

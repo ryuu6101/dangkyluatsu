@@ -20,4 +20,8 @@ class Progress extends Model
     public function document() {
         return $this->belongsTo(Document::class, 'document_id');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

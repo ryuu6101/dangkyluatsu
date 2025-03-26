@@ -32,7 +32,7 @@
 
                 <!-- Main -->
                 <li class="nav-item">
-                    <a href="#!" class="nav-link {{ request()->routeIs('dashboard.index') }}">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>Bảng tin</span>
                     </a>
@@ -71,8 +71,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('account.update-credentials.index') }}" 
-                            class="nav-link {{ request()->routeIs('account.update-credentials.index') ? 'active' : '' }}">
+                            <a href="{{ route('account.credentials.index') }}" 
+                            class="nav-link {{ request()->routeIs('account.credentials.index') ? 'active' : '' }}">
                                 Đổi tài khoản/mật khẩu
                             </a>
                         </li>

@@ -2,6 +2,7 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
+                <strong class="text-muted text-uppercase mb-1 d-block">Cơ quan</strong>
                 <input type="text" class="form-control mb-3" placeholder="Tên cơ quan" title="Tên cơ quan" wire:model.blur="company_name">
                 <input type="text" class="form-control mb-3" placeholder="Địa chỉ" title="Địa chỉ" wire:model.blur="address">
                 <input type="text" class="form-control mb-3" placeholder="Số điện thoại" title="Số điện thoại" wire:model.blur="phone">

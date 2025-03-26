@@ -54,6 +54,12 @@
             type: 'alert',
             timeout: 2500
         });
+        
+        $( 'div.modal.fade' ).on( 'hidden.bs.modal' , function() {
+            if ( $( '.modal:visible' ).length ) {
+                $( 'body' ).addClass( 'modal-open' );
+            }
+        });
     </script>
 
     @if (session('noty'))

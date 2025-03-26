@@ -13,9 +13,10 @@
                     </a>
 
                     <div class="media-body">
-                        <div class="font-weight-semibold">Victoria Baker</div>
+                        @php($admin = auth()->guard('admin')->user())
+                        <div class="font-weight-semibold">{{ $admin->username }}</div>
                         <div class="font-size-sm line-height-sm opacity-50">
-                            Senior developer
+                            {{ $admin->role->name }}
                         </div>
                     </div>
 
@@ -50,7 +51,7 @@
                     <a href="{{ route('admin.documents.index') }}" 
                     class="nav-link {{ $route == 'admin.documents.index' ? 'active' : '' }}">
                         <i class="icon-profile"></i>
-                        <span>Hồ sơ</span>
+                        <span>Hồ sơ đăng ký</span>
                     </a>
                 </li>
 

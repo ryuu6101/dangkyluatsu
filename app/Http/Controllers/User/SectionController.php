@@ -8,6 +8,7 @@ use App\Repositories\Degrees\DegreeRepositoryInterface;
 use App\Repositories\Documents\DocumentRepositoryInterface;
 use App\Repositories\Attachments\AttachmentRepositoryInterface;
 use App\Repositories\FamilyMembers\FamilyMemberRepositoryInterface;
+use App\Repositories\Organizations\OrganizationRepositoryInterface;
 use App\Repositories\ProgressTypes\ProgressTypeRepositoryInterface;
 use App\Repositories\WorkingRecords\WorkingRecordRepositoryInterface;
 use App\Repositories\AttachmentFiles\AttachmentFileRepositoryInterface;
@@ -21,6 +22,7 @@ class SectionController extends Controller
     protected $attachmentRepos;
     protected $attachmentFileRepos;
     protected $progressTypeRepos;
+    protected $organizationRepos;
 
     public function __construct(
         DegreeRepositoryInterface $degreeRepos,
@@ -30,6 +32,7 @@ class SectionController extends Controller
         AttachmentRepositoryInterface $attachmentRepos,
         AttachmentFileRepositoryInterface $attachmentFileRepos,
         ProgressTypeRepositoryInterface $progressTypeRepos,
+        OrganizationRepositoryInterface $organizationRepos,
     ) {
         $this->degreeRepos = $degreeRepos;
         $this->documentRepos = $documentRepos;
@@ -38,6 +41,7 @@ class SectionController extends Controller
         $this->attachmentRepos = $attachmentRepos;
         $this->attachmentFileRepos = $attachmentFileRepos;
         $this->progressTypeRepos = $progressTypeRepos;
+        $this->organizationRepos = $organizationRepos;
     }
 
     public function home() {
@@ -61,6 +65,7 @@ class SectionController extends Controller
         return view('user.sections.my-progress.index')->with([
             'progress' => $progress,
             'views' => $views,
+            'organizations' => $this->organizationRepos->getAll(),
         ]);
     }
 
@@ -68,7 +73,11 @@ class SectionController extends Controller
         return view('user.sections.my-profile.index');
     }
 
-    public function update_credentials() {
-        return view('user.sections.update-credentials.index');
+    public function credentials() {
+        return view('user.sections.credentials.index');
+    }
+
+    public function notifications() {
+        return view('user.sections.notifications.index');
     }
 }

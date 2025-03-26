@@ -10,8 +10,9 @@
 
 @include('user.sections.my-progress.progress.'.$views[$progress->type->id])
 
-@if ($progress->step <= 1)
+@if ($progress->current_step <= 1)
 @include('user.sections.my-progress.forms.'.$views[$progress->type->id])
+@includeWhen($progress->type->id == 2, 'user.sections.my-progress.forms.card-issued')
 @include('web.components.term-and-condition')
 @endif
 

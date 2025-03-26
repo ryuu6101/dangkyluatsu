@@ -62,6 +62,10 @@ class User extends Authenticatable
         return $this->hasMany(Progress::class, 'user_id');
     }
 
+    public function notifications() {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
+
     public function getLawDegreeAttribute() {
         return $this->degrees->where('degree_type_id', 1)->first();
     }

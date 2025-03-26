@@ -43,7 +43,8 @@ Route::middleware(['auth.user'])->group(function() {
     Route::get('bang-tin', [UserSectionController::class, 'dashboard'])->name('dashboard.index');
     Route::get('qua-trinh-cua-toi/{slug}', [UserSectionController::class, 'progress_detail'])->name('my-progress.detail.index');
     Route::get('quan-li-tai-khoan/thong-tin-ca-nhan', [UserSectionController::class, 'my_profile'])->name('account.my-profile.index');
-    Route::get('quan-li-tai-khoan/doi-tai-khoan-mat-khau', [UserSectionController::class, 'update_credentials'])->name('account.update-credentials.index');
+    Route::get('quan-li-tai-khoan/doi-tai-khoan-mat-khau', [UserSectionController::class, 'credentials'])->name('account.credentials.index');
+    Route::get('thong-bao', [UserSectionController::class, 'notifications'])->name('notifications.index');
 });
 
 Route::middleware(['auth.admin'])->prefix('admin')->group(function() {

@@ -1,5 +1,6 @@
 .wizard-progress {
     --node-width: 3rem;
+    counter-reset: node;
 
     display: table;
     width: 100%;
@@ -7,11 +8,8 @@
     position:relative;
 
     .step{
-        height:5rem;
         display: table-cell;
         text-align: center;
-        vertical-align: bottom;
-        overflow: visible;
         position:relative;
         font-size: 16px;
         color: var(--gray);
@@ -29,16 +27,23 @@
         }
 
         .node{
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 2px solid var(--gray);
             background-color: var(--white);
             border-radius: 50%;
             width: var(--node-width);
             aspect-ratio: 1/1;
-            position: absolute;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
+        }
+
+        .node:before {
+            counter-increment: node;
+            content: counter(node);
+        }
+
+        .node .icon-check2 {
+            display: none;
         }
 
         &.complete{
@@ -51,12 +56,20 @@
                 border-color: var(--blue);
                 color: var(--blue);
             }
+            .node:before{
+                content: '‎';
+            }
+            .node .icon-check2 {
+                display: inline-block;
+            }
         }
 
     }
 }
 
 .wizard-vertical {
+    counter-reset: node;
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -91,6 +104,15 @@
                 align-items: center;
                 justify-content: center;
             }
+
+            .node:before {
+                counter-increment: node;
+                content: counter(node);
+            }
+    
+            .node .icon-check2 {
+                display: none;
+            }
         }
 
         .step-content {
@@ -112,6 +134,12 @@
                 .node {
                     border: 2px solid var(--blue);
                     color: var(--blue);
+                }
+                .node:before{
+                    content: '‎';
+                }
+                .node .icon-check2 {
+                    display: inline-block;
                 }
             }
 
